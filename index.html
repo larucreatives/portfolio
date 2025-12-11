@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alex Motion - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        bg: '#050505',
+                        card: '#0f0f0f',
+                        border: '#1f1f1f',
+                        primary: '#f59e0b', // Amber 500
+                        secondary: '#ea580c', // Orange 600
+                    },
+                    animation: {
+                        'marquee': 'marquee 30s linear infinite',
+                        'blob': 'blob 10s infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        blob: {
+                            '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            -webkit-tap-highlight-color: transparent;
+            /* Ensure body takes full height for vertical centering */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- 1. Flashlight Effect --- */
+        .bento-card {
+            --mouse-x: -100px;
+            --mouse-y: -100px;
+            position: relative;
+            background: #0f0f0f;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @media (hover: hover) {
+            .bento-card::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.3), transparent 40%);
+                opacity: 0;
+                transition: opacity 0.5s;
+                z-index: 0;
+                pointer-events: none;
+            }
+            .bento-card:hover::before { opacity: 1; }
+        }
+
+        @media (hover: none) {
+            .bento-card::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom right, rgba(245, 158, 11, 0.15), transparent 50%);
+                opacity: 1; 
+                z-index: 0;
+            }
+        }
+
+        .card-inner {
+            position: absolute;
+            inset: 1px;
+            background: #0f0f0f;
+            border-radius: 23px;
+            z-index: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+        }
+
+        /* --- 2. Text Animation --- */
+        .char-blur {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(-20px);
+            animation: textBlurDown 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes textBlurDown {
+            to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+
+        /* --- 3. Border Beam --- */
+        .beam-btn {
+            position: relative;
+            overflow: hidden;
+            background: #1a1a1a;
+            color: white;
+            border-radius: 9999px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .beam-btn::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: conic-gradient(from var(--angle), transparent 0%, transparent 70%, #f59e0b 100%);
+            animation: spin 3s linear infinite;
+            border-radius: 9999px;
+            padding: 1px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0; 
+            transition: opacity 0.3s;
+        }
+
+        @media (hover: hover) { .beam-btn:hover::after { opacity: 1; } }
+        @media (hover: none) { .beam-btn::after { opacity: 1; } }
+
+        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        @keyframes spin { from { --angle: 0deg; } to { --angle: 360deg; } }
+
+        .marquee-mask {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Grid Layout - SCALABLE UPDATE */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+            width: 100%;
+            max-width: 1600px; /* Increased from 1200px for larger screens */
+            margin: 0 auto;
+        }
+        
+        /* Tablet */
+        @media (min-width: 768px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.25rem;
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Desktop (Scale to Fill) */
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(4, 1fr);
+                /* Calculate height to fill viewport minus padding, forcing rows to stretch */
+                height: calc(100vh - 4rem); 
+                grid-template-rows: repeat(3, 1fr); /* Force 3 equal rows to fill height */
+            }
+        }
+        
+        /* Modal & Expansion Styles */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+        }
+        .modal.active .modal-content { transform: translateY(0); }
+
+        /* Accordion transition */
+        .expand-content {
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .group.expanded .expand-content {
+            max-height: 1000px; /* Arbitrary large height */
+            opacity: 1;
+        }
+        .group.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Tooltip Fade */
+        .tool-desc-fade {
+            transition: opacity 0.2s ease;
+        }
+
+    </style>
+</head>
+<body class="min-h-screen relative selection:bg-amber-500/30">
+
+    <!-- Ambient Background -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-amber-900/10 rounded-full blur-[120px] animate-blob"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-orange-900/10 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+
+    <div class="bento-grid relative z-10">
+
+        <!-- 1. Profile / Hero -->
+        <div class="bento-card col-span-1 md:col-span-2 md:row-span-2 group">
+            <div class="card-inner"></div>
+            <div class="card-content p-8 md:p-10 flex flex-col justify-between h-full relative z-20">
+                <div class="flex justify-between items-start">
+                    <!-- Large Photo Avatar -->
+                    <div class="w-32 h-32 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-[2px] shadow-2xl shadow-amber-500/20 md:group-hover:-rotate-3 transition-transform duration-500 shrink-0">
+                         <div class="w-full h-full rounded-2xl bg-black overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
+                                  alt="Profile" 
+                                  class="w-full h-full object-cover object-top md:group-hover:scale-110 transition-transform duration-700">
+                         </div>
+                    </div>
+
+                    <!-- Badge -->
+                    <div class="px-3 py-1 rounded-full border border-amber-500/20 bg-amber-500/10 text-xs text-amber-500 font-medium tracking-wide flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        Available
+                    </div>
+                </div>
+
+                <div class="mt-10 md:mt-12">
+                    <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 leading-tight animated-text">Motion Designer</h1>
+                    <p class="text-neutral-400 max-w-sm leading-relaxed text-sm md:text-base">
+                        Crafting digital experiences with premium fluidity. Specializing in UI animation, interaction, and visual storytelling.
+                    </p>
+                </div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                    <button onclick="openWorks()" class="beam-btn w-full sm:w-auto px-6 py-3 text-sm font-semibold tracking-wide transition-transform active:scale-95 text-center">
+                        View Projects
+                    </button>
+                    <button class="w-full sm:w-auto px-6 py-3 rounded-full border border-white/10 active:bg-white/5 md:hover:bg-white/5 text-sm font-medium transition-colors text-neutral-300 active:scale-95 transform transition-transform text-center">
+                        View Showreel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Services / Stack (Refactored for 8 Tools + Description) -->
+        <div class="bento-card col-span-1 md:row-span-2 group">
+            <div class="card-inner"></div>
+            <div class="card-content p-6 flex flex-col h-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-white/90">Main Stack</h3>
+                    <i class="ph ph-stack text-neutral-500"></i>
+                </div>
+                
+                <!-- 2-Col Grid for Tools -->
+                <div class="flex-1 grid grid-cols-2 gap-2 content-start overflow-y-auto no-scrollbar">
+                    <!-- Tool Item: AE -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('After Effects', 'Motion Graphics')" onmouseleave="resetDesc()">
+                        <i class="ph ph-film-strip text-xl text-purple-400 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Ae</span>
+                    </div>
+                     <!-- Tool Item: Blender -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Blender', '3D Modeling & Sim')" onmouseleave="resetDesc()">
+                        <i class="ph ph-cube text-xl text-orange-400 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Blender</span>
+                    </div>
+                    <!-- Tool Item: Photoshop -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Photoshop', 'Image Editing')" onmouseleave="resetDesc()">
+                        <i class="ph ph-paint-brush-broad text-xl text-blue-400 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Ps</span>
+                    </div>
+                     <!-- Tool Item: Illustrator -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Illustrator', 'Vector Graphics')" onmouseleave="resetDesc()">
+                        <i class="ph ph-pen-nib text-xl text-orange-600 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Ai</span>
+                    </div>
+                    <!-- Tool Item: Rive -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Rive', 'Interactive Motion')" onmouseleave="resetDesc()">
+                        <i class="ph ph-game-controller text-xl text-pink-400 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Rive</span>
+                    </div>
+                    <!-- Tool Item: Lottie -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Lottie', 'Web Animation JSON')" onmouseleave="resetDesc()">
+                        <i class="ph ph-file-code text-xl text-teal-400 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Lottie</span>
+                    </div>
+                    <!-- Tool Item: Premiere -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Premiere Pro', 'Video Editing')" onmouseleave="resetDesc()">
+                        <i class="ph ph-video-camera text-xl text-violet-500 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Pr</span>
+                    </div>
+                    <!-- Tool Item: Canva -->
+                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Canva', 'Quick Layouts')" onmouseleave="resetDesc()">
+                        <i class="ph ph-layout text-xl text-cyan-400 mb-1"></i>
+                        <span class="text-[10px] text-neutral-300">Canva</span>
+                    </div>
+                </div>
+
+                <!-- Hover Description Area -->
+                <div class="mt-4 pt-3 border-t border-white/5 min-h-[50px] flex flex-col justify-center">
+                    <div id="main-stack-title" class="text-xs font-bold text-amber-500 tool-desc-fade">Hover a tool</div>
+                    <div id="main-stack-desc" class="text-[10px] text-neutral-500 tool-desc-fade">to see details</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Featured Work Button -->
+        <div class="bento-card col-span-1 group cursor-pointer overflow-hidden active:scale-[0.98] transition-transform" onclick="openWorks()">
+            <div class="card-inner"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-600 to-orange-700 opacity-20 md:group-hover:opacity-40 transition-opacity duration-500"></div>
+            <div class="card-content p-6 flex flex-col justify-between h-full relative z-20">
+                <div class="flex justify-between items-start">
+                    <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-sm md:group-hover:scale-110 transition-transform">
+                        <i class="ph ph-briefcase text-lg"></i>
+                    </div>
+                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center -rotate-45 md:group-hover:rotate-0 transition-transform duration-300">
+                        <i class="ph ph-arrow-right text-white"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-1">My Works</h3>
+                    <p class="text-xs text-white/60">Explore case studies &rarr;</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. NEW: AI Tools Card (Replaces Stats) -->
+        <div class="bento-card col-span-1 group">
+            <div class="card-inner"></div>
+            <!-- Unique Gradient for AI -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-50"></div>
+            
+            <div class="card-content p-6 flex flex-col h-full relative z-20">
+                 <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-white/90">AI Tools</h3>
+                    <i class="ph ph-sparkle text-blue-400"></i>
+                </div>
+                
+                <div class="flex-1 flex flex-col gap-3 justify-center">
+                    <!-- AI Item 1 -->
+                     <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Gemini', 'Reasoning & Code')" onmouseleave="resetAiDesc()">
+                        <i class="ph ph-star-four text-xl text-blue-400"></i>
+                        <div>
+                            <div class="text-sm font-medium">Gemini</div>
+                        </div>
+                    </div>
+                    <!-- AI Item 2 -->
+                     <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Eleven Labs', 'Voice Synthesis')" onmouseleave="resetAiDesc()">
+                        <i class="ph ph-waves text-xl text-white"></i>
+                        <div>
+                            <div class="text-sm font-medium">Eleven Labs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Hover Desc -->
+                <div class="mt-2 pt-2 border-t border-white/5 min-h-[30px]">
+                    <div id="ai-stack-desc" class="text-[10px] text-neutral-500 tool-desc-fade text-center">Hover for info</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Testimonials Marquee -->
+        <div class="bento-card col-span-1 md:col-span-2 group">
+            <div class="card-inner"></div>
+            <div class="card-content flex flex-col justify-center h-full py-6 overflow-hidden">
+                 <div class="flex justify-between items-center px-6 md:px-8 mb-4">
+                     <h3 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Client Love</h3>
+                     <div class="flex gap-1">
+                         <div class="w-2 h-2 rounded-full bg-amber-500/20"></div>
+                         <div class="w-2 h-2 rounded-full bg-amber-500/40"></div>
+                         <div class="w-2 h-2 rounded-full bg-amber-500"></div>
+                     </div>
+                 </div>
+                 <div class="relative w-full overflow-hidden marquee-mask">
+                    <div class="flex gap-4 w-max animate-marquee hover:[animation-play-state:paused]">
+                        <div class="w-64 md:w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <p class="text-sm text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
+                                <div><div class="text-xs font-bold text-white">Sarah Jenkins</div><div class="text-[10px] text-neutral-500">CEO, TechStart</div></div>
+                            </div>
+                        </div>
+                        <div class="w-64 md:w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <p class="text-sm text-neutral-300 mb-4 leading-relaxed">"Fast, professional, and the 'border beam' effect is my favorite thing ever."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
+                                <div><div class="text-xs font-bold text-white">Mark Thompson</div><div class="text-[10px] text-neutral-500">Lead Dev</div></div>
+                            </div>
+                        </div>
+                         <div class="w-64 md:w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <p class="text-sm text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
+                                <div><div class="text-xs font-bold text-white">Sarah Jenkins</div><div class="text-[10px] text-neutral-500">CEO, TechStart</div></div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+
+        <!-- 6. Featured Project (Static Preview) -->
+        <div class="bento-card col-span-1 group relative cursor-pointer active:scale-[0.98] transition-transform" onclick="openWorks()">
+            <div class="card-inner"></div>
+            <div class="absolute inset-0 z-0 opacity-40 group-hover:opacity-60 transition-opacity bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+            <div class="card-content p-6 flex flex-col justify-end h-full relative z-20">
+                <div class="text-xs text-amber-400 font-mono mb-1">Latest</div>
+                <h3 class="text-lg font-bold text-white md:group-hover:translate-x-1 transition-transform">Lumina App</h3>
+            </div>
+        </div>
+
+        <!-- 7. Connect -->
+        <div class="bento-card col-span-1 group">
+            <div class="card-inner"></div>
+            <div class="card-content p-0 h-full flex flex-col">
+                <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
+                    <span class="text-sm font-medium">Twitter</span>
+                    <i class="ph ph-twitter-logo text-neutral-400 group-hover:text-white"></i>
+                </a>
+                <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
+                    <span class="text-sm font-medium">Instagram</span>
+                    <i class="ph ph-instagram-logo text-neutral-400 group-hover:text-white"></i>
+                </a>
+                <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors">
+                    <span class="text-sm font-medium">Email</span>
+                    <i class="ph ph-envelope-simple text-neutral-400 group-hover:text-white"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- WORKS MODAL -->
+    <div id="worksModal" class="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4 modal bg-black/95 backdrop-blur-xl">
+        <div class="absolute top-4 right-4 md:top-6 md:right-6 z-50">
+            <button onclick="closeWorks()" class="w-10 h-10 rounded-full bg-white/10 active:bg-white/20 md:hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                <i class="ph ph-x text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="w-full h-[100dvh] md:h-[85vh] md:max-w-5xl bg-[#0a0a0a] md:rounded-3xl border-x-0 md:border border-white/10 overflow-hidden flex flex-col shadow-2xl modal-content">
+             <div class="p-6 md:p-8 border-b border-white/5 bg-[#0f0f0f] flex justify-between items-center shrink-0 pt-16 md:pt-8">
+                 <div>
+                     <h2 class="text-2xl font-bold text-white">Selected Works</h2>
+                     <p class="text-neutral-500 text-sm mt-1">Tap a project to view details.</p>
+                 </div>
+                 <div class="hidden md:block text-xs font-mono text-amber-500 bg-amber-900/20 px-3 py-1 rounded-full border border-amber-500/20">
+                     2024
+                 </div>
+             </div>
+             
+             <!-- Dynamic Works Grid -->
+             <div class="flex-1 overflow-y-auto p-4 md:p-8 pb-20 md:pb-8" id="worksContainer">
+                 <!-- JavaScript will inject content here -->
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // --- HOVER DESCRIPTION LOGIC ---
+        function setDesc(title, desc) {
+            document.getElementById('main-stack-title').textContent = title;
+            document.getElementById('main-stack-desc').textContent = desc;
+        }
+        function resetDesc() {
+            document.getElementById('main-stack-title').textContent = 'Hover a tool';
+            document.getElementById('main-stack-desc').textContent = 'to see details';
+        }
+
+        function setAiDesc(title, desc) {
+             document.getElementById('ai-stack-desc').textContent = title + ": " + desc;
+             document.getElementById('ai-stack-desc').classList.add('text-blue-400');
+             document.getElementById('ai-stack-desc').classList.remove('text-neutral-500');
+        }
+        function resetAiDesc() {
+            document.getElementById('ai-stack-desc').textContent = 'Hover for info';
+            document.getElementById('ai-stack-desc').classList.remove('text-blue-400');
+            document.getElementById('ai-stack-desc').classList.add('text-neutral-500');
+        }
+
+
+        // --- CMS CONFIGURATION ---
+        const portfolioItems = [
+            {
+                id: 1,
+                title: "Lumina App Interface",
+                category: "UI Motion",
+                shortDesc: "Fintech dashboard motion system.",
+                description: "A comprehensive motion system for a fintech dashboard. The goal was to create a feeling of trust and fluidity. We focused heavily on micro-interactions for data visualization, ensuring that charts load with a satisfying easing curve.",
+                role: "Lead Motion Designer",
+                tools: "After Effects, Rive, Lottie",
+                type: "image",
+                src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop"
+            },
+            {
+                id: 2,
+                title: "Nike Air Max Promo",
+                category: "3D Animation",
+                shortDesc: "High-energy product reveal.",
+                description: "A 15-second high-energy product reveal created in Cinema 4D. The challenge was to simulate the breathable fabric texture realistically while maintaining a fast render time for social media delivery.",
+                role: "3D Generalist",
+                tools: "Cinema 4D, Redshift, Octane",
+                type: "image", 
+                src: "https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=1000&auto=format&fit=crop"
+            },
+            {
+                id: 3,
+                title: "Spotify Wrapped Concept",
+                category: "Visual Identity",
+                shortDesc: "Kinetic typography exploration.",
+                description: "An experimental exploration of kinetic typography. Using generative design principles, I created a system where the music beat drives the distortion of the type.",
+                role: "Art Director",
+                tools: "After Effects, JS",
+                type: "image", 
+                src: "https://images.unsplash.com/photo-1614850523060-8da1d56ae167?q=80&w=1000&auto=format&fit=crop"
+            },
+             {
+                id: 4,
+                title: "Abstract Loops Vol. 1",
+                category: "Personal",
+                shortDesc: "Soft body physics studies.",
+                description: "A personal daily render challenge. This series explores soft body physics and cloth simulations to create calming, seamless loops.",
+                role: "Creator",
+                tools: "Blender, Cycles",
+                type: "image", 
+                src: "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1000&auto=format&fit=crop"
+            }
+        ];
+
+        // --- RENDER LOGIC ---
+        function renderWorks() {
+            const container = document.getElementById('worksContainer');
+            container.innerHTML = ''; 
+
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
+
+            portfolioItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                // Added ID for unique identification
+                card.id = `work-card-${index}`;
+                card.className = 'group p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer overflow-hidden';
+                card.onclick = () => toggleExpand(index);
+
+                let mediaHtml = `
+                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-neutral-900 border border-white/10 relative group-hover:border-amber-500/30 transition-colors">
+                            <img src="${item.src}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${item.title}">
+                    </div>
+                `;
+
+                card.innerHTML = `
+                    ${mediaHtml}
+                    <div class="mt-4">
+                        <div class="flex justify-between items-start">
+                             <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-amber-500 transition-colors">${item.title}</h3>
+                                <p class="text-sm text-neutral-400 mt-1">${item.shortDesc}</p>
+                             </div>
+                             <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 transition-transform duration-300 expand-icon">
+                                <i class="ph ph-caret-down"></i>
+                             </div>
+                        </div>
+                        
+                        <!-- EXPANDABLE SECTION -->
+                        <div class="expand-content">
+                            <div class="pt-6 mt-4 border-t border-white/10 text-sm text-neutral-300 space-y-4">
+                                <div>
+                                    <span class="text-amber-500 font-mono text-xs uppercase tracking-wider block mb-1">The Challenge</span>
+                                    <p class="leading-relaxed">${item.description}</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="text-neutral-500 font-mono text-xs uppercase tracking-wider block mb-1">My Role</span>
+                                        <span class="text-white">${item.role}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-neutral-500 font-mono text-xs uppercase tracking-wider block mb-1">Tools</span>
+                                        <span class="text-white">${item.tools}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            container.appendChild(grid);
+        }
+
+        // --- EXPAND LOGIC ---
+        function toggleExpand(index) {
+            const card = document.getElementById(`work-card-${index}`);
+            // Toggle the 'expanded' class on the card
+            if (card.classList.contains('expanded')) {
+                card.classList.remove('expanded');
+            } else {
+                // Optional: Close others when one opens (Accordian style)
+                document.querySelectorAll('.expanded').forEach(c => c.classList.remove('expanded'));
+                card.classList.add('expanded');
+            }
+        }
+
+        // --- MODAL CONTROL ---
+        const modal = document.getElementById('worksModal');
+        
+        function openWorks() {
+            renderWorks(); 
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeWorks() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeWorks();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeWorks();
+        });
+
+        // --- FLASH LIGHT & TEXT ---
+        const cards = document.querySelectorAll('.bento-card');
+        if (window.matchMedia("(hover: hover)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        }
+
+        const textElement = document.querySelector('.animated-text');
+        if (textElement) {
+            const html = textElement.innerHTML.replace(/<br\s*\/?>/gi, '#BR#');
+            textElement.innerHTML = '';
+            const parts = html.split('#BR#');
+            parts.forEach((part, lineIndex) => {
+                const lineDiv = document.createElement('div');
+                part.split('').forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.className = 'char-blur';
+                    const delay = 0.2 + (lineIndex * 0.2) + (charIndex * 0.05);
+                    span.style.animationDelay = `${delay}s`;
+                    lineDiv.appendChild(span);
+                });
+                textElement.appendChild(lineDiv);
+            });
+        }
+    </script>
+</body>
+</html>
