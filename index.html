@@ -145,25 +145,15 @@
         }
 
         @media (hover: hover) { .beam-btn:hover::after { opacity: 1; } }
-        @media (hover: none) { .beam-btn::after { opacity: 1; } }
-
-        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-        @keyframes spin { from { --angle: 0deg; } to { --angle: 360deg; } }
-
-        .marquee-mask {
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        }
-
-        /* Grid Layout - OPTIMIZED FOR 1080P FEEL */
+        /* Grid Layout - OPTIMIZED FOR FULL BROWSER FILL */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
             gap: 1rem;
             padding: 1rem;
             width: 100%;
-            /* Constrain width to 1200px (standard 1080p layout feel) */
-            max-width: 1200px; 
+            /* Removed fixed max-width so it fills the browser */
+            max-width: 100%; 
             margin: 0 auto;
         }
         
@@ -180,8 +170,18 @@
         @media (min-width: 1024px) {
             .bento-grid {
                 grid-template-columns: repeat(4, 1fr);
-                /* Revert to fixed row heights to preserve Bento aspect ratio */
                 grid-auto-rows: 260px; 
+                padding: 2rem; /* More padding on desktop */
+            }
+        }
+
+        /* Large Screens (1440p+) */
+        @media (min-width: 1400px) {
+            .bento-grid {
+                /* Increase row height to maintain aspect ratio on wide screens */
+                grid-auto-rows: 300px;
+                padding: 3rem;
+                gap: 1.5rem;
             }
         }
         
