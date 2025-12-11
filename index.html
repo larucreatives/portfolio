@@ -238,16 +238,16 @@
 
                 <div class="mt-10 md:mt-12">
                     <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 leading-tight animated-text">Motion Designer</h1>
-                    <!-- Increased Font Size to text-base / md:text-lg -->
-                    <p class="text-neutral-300 max-w-lg leading-relaxed text-base md:text-lg">
+                    <!-- Increased max-width to allow text to flow on fewer lines -->
+                    <p class="text-neutral-300 max-w-2xl leading-relaxed text-base md:text-lg">
                         Crafting digital experiences with premium fluidity. Specializing in UI animation, interaction, and visual storytelling.
                     </p>
                 </div>
 
                 <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <!-- Link to works.html -->
-                    <a href="works.html" class="beam-btn w-full sm:w-auto px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center">
-                        View Projects
+                    <!-- NEW CTA: Start a Project -->
+                    <a href="mailto:hello@alex.design" class="beam-btn w-full sm:w-auto px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center">
+                        Start a Project
                     </a>
                     <button class="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/10 active:bg-white/5 md:hover:bg-white/5 text-base font-medium transition-colors text-neutral-300 active:scale-95 transform transition-transform text-center">
                         View Showreel
@@ -372,19 +372,18 @@
             </div>
         </div>
 
-        <!-- 3. Featured Work / My Works Card (RESTORED - Video Background with Briefcase) -->
-        <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden active:scale-[0.98] transition-transform block relative">
+        <!-- 3. Featured Work Button (Link to works.html) with Video Background -->
+        <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative">
             <div class="card-inner"></div>
             
-            <!-- Video Background -->
-            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500">
-                <!-- Replace 'src' with your actual video file path -->
+            <!-- VIDEO BACKGROUND -->
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
                 <source src="https://cdn.coverr.co/videos/coverr-gradient-animated-background-6277/1080p.mp4" type="video/mp4">
             </video>
             
-            <!-- Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-            
+            <!-- GRADIENT OVERLAY FOR TEXT READABILITY -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+
             <div class="card-content p-6 flex flex-col justify-between h-full relative z-20">
                 <div class="flex justify-between items-start">
                     <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-sm md:group-hover:scale-110 transition-transform">
@@ -401,34 +400,53 @@
             </div>
         </a>
 
-        <!-- 4. AI Tools Card -->
+        <!-- 4. Tools Card -->
         <div class="bento-card col-span-1 group">
             <div class="card-inner"></div>
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-50"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 opacity-50"></div>
             
             <div class="card-content p-6 flex flex-col h-full relative z-20">
                  <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold text-white/90">AI Tools</h3>
-                    <i class="ph ph-sparkle text-blue-400 text-xl"></i>
+                    <h3 class="text-xl font-semibold text-white/90">Tools</h3>
+                    <i class="ph ph-wrench text-neutral-400 text-xl"></i>
                 </div>
                 
-                <div class="flex-1 flex flex-col gap-3 justify-center">
-                     <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Gemini', 'Reasoning & Code')" onmouseleave="resetAiDesc()">
-                        <i class="ph ph-star-four text-2xl text-blue-400"></i>
-                        <div>
-                            <div class="text-base font-medium">Gemini</div>
-                        </div>
-                    </div>
-                     <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Eleven Labs', 'Voice Synthesis')" onmouseleave="resetAiDesc()">
-                        <i class="ph ph-waves text-2xl text-white"></i>
-                        <div>
-                            <div class="text-base font-medium">Eleven Labs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-4 pt-2 border-t border-white/5 min-h-[30px]">
-                    <div id="ai-stack-desc" class="text-sm text-neutral-500 tool-desc-fade text-center">Hover for info</div>
+                <div class="flex-1 grid grid-cols-3 gap-2 content-center">
+                     <!-- Ae -->
+                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-purple-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="After Effects">
+                        <i class="ph ph-film-strip text-2xl text-purple-500"></i>
+                        <span class="text-[10px] text-neutral-400 mt-1">Ae</span>
+                     </div>
+                     <!-- Blender -->
+                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-orange-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Blender">
+                        <i class="ph ph-cube text-2xl text-orange-500"></i>
+                        <span class="text-[10px] text-neutral-400 mt-1">3D</span>
+                     </div>
+                     <!-- Premiere -->
+                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-indigo-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Premiere Pro">
+                        <i class="ph ph-video-camera text-2xl text-indigo-500"></i>
+                        <span class="text-[10px] text-neutral-400 mt-1">Pr</span>
+                     </div>
+                     <!-- Photoshop -->
+                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-blue-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Photoshop">
+                        <i class="ph ph-paint-brush-broad text-2xl text-blue-500"></i>
+                        <span class="text-[10px] text-neutral-400 mt-1">Ps</span>
+                     </div>
+                     <!-- Canva -->
+                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-cyan-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Canva">
+                        <i class="ph ph-layout text-2xl text-cyan-500"></i>
+                        <span class="text-[10px] text-neutral-400 mt-1">Can</span>
+                     </div>
+                     <!-- Rive -->
+                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-pink-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Rive">
+                        <i class="ph ph-game-controller text-2xl text-pink-500"></i>
+                        <span class="text-[10px] text-neutral-400 mt-1">Rive</span>
+                     </div>
+                     <!-- Lottie -->
+                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-teal-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Lottie">
+                        <i class="ph ph-file-code text-2xl text-teal-500"></i>
+                        <span class="text-[10px] text-neutral-400 mt-1">Json</span>
+                     </div>
                 </div>
             </div>
         </div>
@@ -474,7 +492,7 @@
         </div>
 
         <!-- 6. Featured Project (Static Preview) -->
-        <a href="works.html" class="bento-card col-span-1 group relative cursor-pointer active:scale-[0.98] transition-transform block">
+        <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative">
             <div class="card-inner"></div>
             <div class="absolute inset-0 z-0 opacity-40 group-hover:opacity-60 transition-opacity bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
