@@ -47,11 +47,25 @@
             overflow-x: hidden;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
             -webkit-tap-highlight-color: transparent;
-            /* Center the grid vertically on large screens */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        /* Scrollbar Styling for Lists */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* --- 1. Flashlight Effect --- */
@@ -243,58 +257,142 @@
                     </div>
 
                     <!-- Badge -->
-                    <div class="px-3 py-1 rounded-full border border-amber-500/20 bg-amber-500/10 text-xs text-amber-500 font-medium tracking-wide flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                    <div class="px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 text-sm text-amber-500 font-medium tracking-wide flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
                         Available
                     </div>
                 </div>
 
                 <div class="mt-10 md:mt-12">
                     <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 leading-tight animated-text">Motion Designer</h1>
-                    <p class="text-neutral-400 max-w-sm leading-relaxed text-sm md:text-base">
+                    <!-- Increased Font Size to text-base / md:text-lg -->
+                    <p class="text-neutral-300 max-w-lg leading-relaxed text-base md:text-lg">
                         Crafting digital experiences with premium fluidity. Specializing in UI animation, interaction, and visual storytelling.
                     </p>
                 </div>
 
                 <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <button onclick="openWorks()" class="beam-btn w-full sm:w-auto px-6 py-3 text-sm font-semibold tracking-wide transition-transform active:scale-95 text-center">
+                    <button onclick="openWorks()" class="beam-btn w-full sm:w-auto px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center">
                         View Projects
                     </button>
-                    <button class="w-full sm:w-auto px-6 py-3 rounded-full border border-white/10 active:bg-white/5 md:hover:bg-white/5 text-sm font-medium transition-colors text-neutral-300 active:scale-95 transform transition-transform text-center">
+                    <button class="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/10 active:bg-white/5 md:hover:bg-white/5 text-base font-medium transition-colors text-neutral-300 active:scale-95 transform transition-transform text-center">
                         View Showreel
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- 2. Capabilities / Services (Updated) -->
+        <!-- 2. Capabilities (New Hover-Reveal List) -->
         <div class="bento-card col-span-1 md:row-span-2 group">
             <div class="card-inner"></div>
             <div class="card-content p-6 flex flex-col h-full">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-semibold text-white/90">Capabilities</h3>
-                    <i class="ph ph-list-checks text-neutral-500"></i>
+                    <h3 class="text-xl font-semibold text-white/90">Capabilities</h3>
+                    <i class="ph ph-list-checks text-neutral-500 text-xl"></i>
                 </div>
                 
-                <div class="flex-1 flex flex-col gap-4">
-                    <!-- Capability Block -->
-                    <div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 transition-all group/item h-full flex flex-col">
-                        <div class="flex items-center gap-3 mb-4 text-amber-500">
-                             <div class="p-2 rounded-lg bg-amber-500/10">
-                                <i class="ph ph-film-strip text-lg"></i>
-                             </div>
-                             <h4 class="font-bold text-sm uppercase tracking-wider">Motion Design</h4>
+                <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                    <div class="flex flex-col gap-3">
+                        
+                        <!-- Capability 1: Motion Design -->
+                        <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
+                            <div class="flex items-center gap-3">
+                                 <div class="p-2 rounded-lg bg-amber-500/10 text-amber-500">
+                                    <i class="ph ph-film-strip text-lg"></i>
+                                 </div>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-amber-500 transition-colors">Motion Design</h4>
+                            </div>
+                            <!-- Hidden Desc -->
+                            <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
+                                <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Creating SaaS launch videos, product demos, and digital ads.</li>
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Accelerating animation workflows with plugins (Motion Tools, Overlord, etc.).</li>
+                                </ul>
+                            </div>
                         </div>
-                        <ul class="space-y-4">
-                            <li class="text-xs text-neutral-400 leading-relaxed flex items-start gap-3">
-                                <i class="ph ph-check-circle text-amber-500 mt-0.5 text-base"></i>
-                                <span>Creating SaaS launch videos, product demos, and digital ads.</span>
-                            </li>
-                            <li class="text-xs text-neutral-400 leading-relaxed flex items-start gap-3">
-                                <i class="ph ph-check-circle text-amber-500 mt-0.5 text-base"></i>
-                                <span>Accelerating animation workflows with plugins (Motion Tools, Overlord, etc.).</span>
-                            </li>
-                        </ul>
+
+                        <!-- Capability 2: Blender (3D) -->
+                        <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
+                            <div class="flex items-center gap-3">
+                                 <div class="p-2 rounded-lg bg-orange-500/10 text-orange-500">
+                                    <i class="ph ph-cube text-lg"></i>
+                                 </div>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-orange-500 transition-colors">Blender (3D)</h4>
+                            </div>
+                            <!-- Hidden Desc -->
+                            <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
+                                <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Producing basic 3D product animations and high-quality static renders.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Capability 3: Graphic Design -->
+                        <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
+                            <div class="flex items-center gap-3">
+                                 <div class="p-2 rounded-lg bg-purple-500/10 text-purple-500">
+                                    <i class="ph ph-paint-brush text-lg"></i>
+                                 </div>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-purple-500 transition-colors">Graphic Design</h4>
+                            </div>
+                            <!-- Hidden Desc -->
+                            <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
+                                <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Designing polished digital assets for web banners, social media, and presentations.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Capability 4: Web Animation -->
+                        <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
+                            <div class="flex items-center gap-3">
+                                 <div class="p-2 rounded-lg bg-pink-500/10 text-pink-500">
+                                    <i class="ph ph-activity text-lg"></i>
+                                 </div>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-pink-500 transition-colors">Web Animation</h4>
+                            </div>
+                            <!-- Hidden Desc -->
+                            <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
+                                <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Converting AE comps to Lottie files (Bodymovin, LottieFiles).</li>
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Building stateful, real-time interactive animations with Rive.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Capability 5: AI Integration -->
+                        <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
+                            <div class="flex items-center gap-3">
+                                 <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500">
+                                    <i class="ph ph-sparkle text-lg"></i>
+                                 </div>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-blue-500 transition-colors">AI Integration</h4>
+                            </div>
+                            <!-- Hidden Desc -->
+                            <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
+                                <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Using LLMs (ChatGPT, Gemini) for prompt refinement, scripts, and storyboards.</li>
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Leveraging generative tools (Nanobanana, Veo 3.1, Sora) for asset creation.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Capability 6: Web Design -->
+                        <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
+                            <div class="flex items-center gap-3">
+                                 <div class="p-2 rounded-lg bg-teal-500/10 text-teal-500">
+                                    <i class="ph ph-desktop text-lg"></i>
+                                 </div>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-teal-500 transition-colors">Web Design (Framer)</h4>
+                            </div>
+                            <!-- Hidden Desc -->
+                            <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
+                                <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
+                                    <li class="text-sm text-neutral-300 leading-relaxed">• Building responsive, high-quality landing pages with smooth interactions.</li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -306,16 +404,16 @@
             <div class="absolute inset-0 bg-gradient-to-br from-amber-600 to-orange-700 opacity-20 md:group-hover:opacity-40 transition-opacity duration-500"></div>
             <div class="card-content p-6 flex flex-col justify-between h-full relative z-20">
                 <div class="flex justify-between items-start">
-                    <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-sm md:group-hover:scale-110 transition-transform">
-                        <i class="ph ph-briefcase text-lg"></i>
+                    <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-sm md:group-hover:scale-110 transition-transform">
+                        <i class="ph ph-briefcase text-2xl"></i>
                     </div>
-                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center -rotate-45 md:group-hover:rotate-0 transition-transform duration-300">
-                        <i class="ph ph-arrow-right text-white"></i>
+                    <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center -rotate-45 md:group-hover:rotate-0 transition-transform duration-300">
+                        <i class="ph ph-arrow-right text-white text-lg"></i>
                     </div>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold text-white mb-1">My Works</h3>
-                    <p class="text-xs text-white/60">Explore case studies &rarr;</p>
+                    <h3 class="text-2xl font-bold text-white mb-2">My Works</h3>
+                    <p class="text-sm text-white/70">Explore case studies &rarr;</p>
                 </div>
             </div>
         </div>
@@ -328,30 +426,30 @@
             
             <div class="card-content p-6 flex flex-col h-full relative z-20">
                  <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-white/90">AI Tools</h3>
-                    <i class="ph ph-sparkle text-blue-400"></i>
+                    <h3 class="text-xl font-semibold text-white/90">AI Tools</h3>
+                    <i class="ph ph-sparkle text-blue-400 text-xl"></i>
                 </div>
                 
                 <div class="flex-1 flex flex-col gap-3 justify-center">
                     <!-- AI Item 1 -->
-                     <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Gemini', 'Reasoning & Code')" onmouseleave="resetAiDesc()">
-                        <i class="ph ph-star-four text-xl text-blue-400"></i>
+                     <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Gemini', 'Reasoning & Code')" onmouseleave="resetAiDesc()">
+                        <i class="ph ph-star-four text-2xl text-blue-400"></i>
                         <div>
-                            <div class="text-sm font-medium">Gemini</div>
+                            <div class="text-base font-medium">Gemini</div>
                         </div>
                     </div>
                     <!-- AI Item 2 -->
-                     <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Eleven Labs', 'Voice Synthesis')" onmouseleave="resetAiDesc()">
-                        <i class="ph ph-waves text-xl text-white"></i>
+                     <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-blue-400/30 hover:bg-white/10 transition-all cursor-default" onmouseenter="setAiDesc('Eleven Labs', 'Voice Synthesis')" onmouseleave="resetAiDesc()">
+                        <i class="ph ph-waves text-2xl text-white"></i>
                         <div>
-                            <div class="text-sm font-medium">Eleven Labs</div>
+                            <div class="text-base font-medium">Eleven Labs</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- AI Hover Desc -->
-                <div class="mt-2 pt-2 border-t border-white/5 min-h-[30px]">
-                    <div id="ai-stack-desc" class="text-[10px] text-neutral-500 tool-desc-fade text-center">Hover for info</div>
+                <div class="mt-4 pt-2 border-t border-white/5 min-h-[30px]">
+                    <div id="ai-stack-desc" class="text-sm text-neutral-500 tool-desc-fade text-center">Hover for info</div>
                 </div>
             </div>
         </div>
@@ -361,7 +459,7 @@
             <div class="card-inner"></div>
             <div class="card-content flex flex-col justify-center h-full py-6 overflow-hidden">
                  <div class="flex justify-between items-center px-6 md:px-8 mb-4">
-                     <h3 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Client Love</h3>
+                     <h3 class="text-sm font-mono text-neutral-500 uppercase tracking-widest">Client Love</h3>
                      <div class="flex gap-1">
                          <div class="w-2 h-2 rounded-full bg-amber-500/20"></div>
                          <div class="w-2 h-2 rounded-full bg-amber-500/40"></div>
@@ -370,25 +468,25 @@
                  </div>
                  <div class="relative w-full overflow-hidden marquee-mask">
                     <div class="flex gap-4 w-max animate-marquee hover:[animation-play-state:paused]">
-                        <div class="w-64 md:w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <p class="text-sm text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
+                        <div class="w-64 md:w-80 p-6 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <p class="text-base text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
-                                <div><div class="text-xs font-bold text-white">Sarah Jenkins</div><div class="text-[10px] text-neutral-500">CEO, TechStart</div></div>
+                                <div><div class="text-sm font-bold text-white">Sarah Jenkins</div><div class="text-xs text-neutral-500">CEO, TechStart</div></div>
                             </div>
                         </div>
-                        <div class="w-64 md:w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <p class="text-sm text-neutral-300 mb-4 leading-relaxed">"Fast, professional, and the 'border beam' effect is my favorite thing ever."</p>
+                        <div class="w-64 md:w-80 p-6 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <p class="text-base text-neutral-300 mb-4 leading-relaxed">"Fast, professional, and the 'border beam' effect is my favorite thing ever."</p>
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
-                                <div><div class="text-xs font-bold text-white">Mark Thompson</div><div class="text-[10px] text-neutral-500">Lead Dev</div></div>
+                                <div><div class="text-sm font-bold text-white">Mark Thompson</div><div class="text-xs text-neutral-500">Lead Dev</div></div>
                             </div>
                         </div>
-                         <div class="w-64 md:w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <p class="text-sm text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
+                         <div class="w-64 md:w-80 p-6 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <p class="text-base text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
-                                <div><div class="text-xs font-bold text-white">Sarah Jenkins</div><div class="text-[10px] text-neutral-500">CEO, TechStart</div></div>
+                                <div><div class="text-sm font-bold text-white">Sarah Jenkins</div><div class="text-xs text-neutral-500">CEO, TechStart</div></div>
                             </div>
                         </div>
                     </div>
@@ -402,8 +500,8 @@
             <div class="absolute inset-0 z-0 opacity-40 group-hover:opacity-60 transition-opacity bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
             <div class="card-content p-6 flex flex-col justify-end h-full relative z-20">
-                <div class="text-xs text-amber-400 font-mono mb-1">Latest</div>
-                <h3 class="text-lg font-bold text-white md:group-hover:translate-x-1 transition-transform">Lumina App</h3>
+                <div class="text-sm text-amber-400 font-mono mb-2">Latest</div>
+                <h3 class="text-xl font-bold text-white md:group-hover:translate-x-1 transition-transform">Lumina App</h3>
             </div>
         </div>
 
@@ -412,16 +510,16 @@
             <div class="card-inner"></div>
             <div class="card-content p-0 h-full flex flex-col">
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
-                    <span class="text-sm font-medium">Twitter</span>
-                    <i class="ph ph-twitter-logo text-neutral-400 group-hover:text-white"></i>
+                    <span class="text-base font-medium">Twitter</span>
+                    <i class="ph ph-twitter-logo text-neutral-400 group-hover:text-white text-xl"></i>
                 </a>
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
-                    <span class="text-sm font-medium">Instagram</span>
-                    <i class="ph ph-instagram-logo text-neutral-400 group-hover:text-white"></i>
+                    <span class="text-base font-medium">Instagram</span>
+                    <i class="ph ph-instagram-logo text-neutral-400 group-hover:text-white text-xl"></i>
                 </a>
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors">
-                    <span class="text-sm font-medium">Email</span>
-                    <i class="ph ph-envelope-simple text-neutral-400 group-hover:text-white"></i>
+                    <span class="text-base font-medium">Email</span>
+                    <i class="ph ph-envelope-simple text-neutral-400 group-hover:text-white text-xl"></i>
                 </a>
             </div>
         </div>
@@ -438,10 +536,10 @@
         <div class="w-full h-[100dvh] md:h-[85vh] md:max-w-5xl bg-[#0a0a0a] md:rounded-3xl border-x-0 md:border border-white/10 overflow-hidden flex flex-col shadow-2xl modal-content">
              <div class="p-6 md:p-8 border-b border-white/5 bg-[#0f0f0f] flex justify-between items-center shrink-0 pt-16 md:pt-8">
                  <div>
-                     <h2 class="text-2xl font-bold text-white">Selected Works</h2>
-                     <p class="text-neutral-500 text-sm mt-1">Tap a project to view details.</p>
+                     <h2 class="text-3xl font-bold text-white">Selected Works</h2>
+                     <p class="text-neutral-400 text-base mt-2">Tap a project to view details.</p>
                  </div>
-                 <div class="hidden md:block text-xs font-mono text-amber-500 bg-amber-900/20 px-3 py-1 rounded-full border border-amber-500/20">
+                 <div class="hidden md:block text-sm font-mono text-amber-500 bg-amber-900/20 px-3 py-1 rounded-full border border-amber-500/20">
                      2024
                  </div>
              </div>
