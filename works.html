@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected Works - Alex Motion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        bg: '#050505',
+                        surface: '#0f0f0f',
+                        border: '#1f1f1f',
+                        primary: '#f59e0b', // Amber 500
+                        secondary: '#ea580c', // Orange 600
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            /* Prevent body scroll, we handle it in columns */
+            overflow: hidden; 
+            height: 100vh;
+        }
+
+        /* Custom Scrollbar for the columns */
+        .scroller::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scroller::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scroller::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 10px;
+        }
+        .scroller::-webkit-scrollbar-thumb:hover {
+            background: #333;
+        }
+
+        /* Active State for List Item */
+        .work-item.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(245, 158, 11, 0.5);
+        }
+        .work-item.active .title {
+            color: #f59e0b;
+        }
+
+        /* --- ENTRANCE ANIMATION (Blur Slide Up) --- */
+        .animate-enter {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(20px);
+            animation: enterBlur 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes enterBlur {
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger Delays */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="flex flex-col h-screen selection:bg-amber-500/30">
+
+    <!-- Top Navigation (Back to Home) -->
+    <div class="h-16 border-b border-white/5 flex items-center px-6 justify-between bg-[#050505] z-50 shrink-0 animate-enter">
+        <a href="index.html" class="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group">
+            <div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors">
+                <i class="ph ph-arrow-left"></i>
+            </div>
+            <span class="text-sm font-medium">Back to Portfolio</span>
+        </a>
+        <div class="text-sm font-mono text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+            Selected Works
+        </div>
+    </div>
+
+    <!-- Main Layout: 3 Columns -->
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- COLUMN 1: Works List (Left) -->
+        <div class="w-80 border-r border-white/5 flex flex-col bg-[#080808] animate-enter delay-100">
+            <div class="p-4 border-b border-white/5">
+                <h2 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Project List</h2>
+            </div>
+            <div class="flex-1 overflow-y-auto scroller p-3 space-y-2" id="project-list">
+                <!-- List Items Injected via JS -->
+            </div>
+        </div>
+
+        <!-- COLUMN 2: Visuals (Center - Scrollable) -->
+        <div class="flex-1 overflow-y-auto scroller bg-[#050505] relative animate-enter delay-200" id="visual-container">
+            <div class="max-w-5xl mx-auto p-8 md:p-12">
+                <!-- Main Video Area -->
+                <div class="w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl mb-8 relative group">
+                    <iframe id="main-video" src="" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    <!-- Loading State / Placeholder -->
+                    <div id="video-placeholder" class="absolute inset-0 flex items-center justify-center bg-neutral-900 text-neutral-700 pointer-events-none -z-10">
+                        <i class="ph ph-film-strip text-4xl animate-pulse"></i>
+                    </div>
+                </div>
+
+                <!-- Static Frames Section -->
+                <div class="mb-6 flex items-center gap-4">
+                    <h3 class="text-lg font-bold text-white">Static Frames</h3>
+                    <div class="h-px flex-1 bg-white/10"></div>
+                </div>
+
+                <!-- Static Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="static-grid">
+                    <!-- Images Injected JS -->
+                </div>
+                
+                <div class="h-32"></div> <!-- Bottom Spacer -->
+            </div>
+        </div>
+
+        <!-- COLUMN 3: Details (Right - Sticky) -->
+        <div class="w-80 border-l border-white/5 bg-[#080808] flex flex-col animate-enter delay-300">
+            <div class="flex-1 overflow-y-auto scroller p-6">
+                
+                <!-- Project Title & Meta -->
+                <div class="mb-8">
+                    <span id="detail-category" class="text-xs font-mono text-amber-500 border border-amber-500/20 bg-amber-500/5 px-2 py-1 rounded mb-3 inline-block">Category</span>
+                    <h1 id="detail-title" class="text-2xl font-bold text-white leading-tight mb-2">Project Title</h1>
+                    <p id="detail-client" class="text-sm text-neutral-400">Client Name</p>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Description -->
+                    <div>
+                        <h4 class="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-3">Description</h4>
+                        <p id="detail-desc" class="text-sm text-neutral-300 leading-relaxed">
+                            Project description goes here.
+                        </p>
+                    </div>
+
+                    <!-- Tools -->
+                    <div>
+                        <h4 class="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-3">Tools Used</h4>
+                        <div id="detail-tools" class="flex flex-wrap gap-2">
+                            <!-- Tags Injected JS -->
+                        </div>
+                    </div>
+
+                    <!-- Role -->
+                    <div>
+                        <h4 class="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-3">My Role</h4>
+                        <p id="detail-role" class="text-sm text-white font-medium">Lead Animator</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Bottom CTA -->
+            <div class="p-6 border-t border-white/5 bg-[#0a0a0a]">
+                <button class="w-full py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors">
+                    Visit Live Site <i class="ph ph-arrow-up-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LIGHTBOX MODAL OVERLAY -->
+    <div id="image-modal" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeImageModal()">
+        <div class="relative max-w-7xl max-h-[90vh]">
+            <img id="modal-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300 transform" onclick="event.stopPropagation()">
+            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white/50 hover:text-white transition-colors">
+                <i class="ph ph-x text-3xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const projects = [
+            {
+                id: 1,
+                title: "Lumina App Interface",
+                category: "UI Motion",
+                client: "Lumina Financial",
+                role: "Lead Motion Designer",
+                description: "A comprehensive motion system for a fintech dashboard. We focused heavily on micro-interactions for data visualization, ensuring that charts load with a satisfying easing curve. The goal was to build trust through fluid, responsive animation.",
+                tools: ["After Effects", "Lottie", "Figma"],
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=1&showinfo=0&modestbranding=1", 
+                statics: [
+                    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1200&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 2,
+                title: "Nike Air Max Promo",
+                category: "3D Animation",
+                client: "Nike",
+                role: "3D Generalist",
+                description: "High-energy 3D product reveal created in Cinema 4D. The challenge was to simulate the breathable fabric texture realistically while maintaining a fast render time for social media delivery.",
+                tools: ["Cinema 4D", "Redshift", "Premiere"],
+                video: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=0&controls=1&showinfo=0&modestbranding=1",
+                statics: [
+                    "https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=1200&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 3,
+                title: "Spotify Wrapped",
+                category: "Visual Identity",
+                client: "Spotify",
+                role: "Art Director",
+                description: "An experimental exploration of kinetic typography. Using generative design principles, I created a system where the music beat drives the distortion of the type.",
+                tools: ["After Effects", "Javascript", "Illustrator"],
+                video: "https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=0&controls=1&showinfo=0&modestbranding=1",
+                statics: [
+                    "https://images.unsplash.com/photo-1614850523060-8da1d56ae167?q=80&w=1200&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=1200&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 4,
+                title: "Abstract Loops",
+                category: "Personal",
+                client: "Self-Initiated",
+                role: "Creator",
+                description: "A series of satisfying loops exploring soft body physics and cloth simulations to create calming, seamless visuals for screens.",
+                tools: ["Blender", "Cycles", "DaVinci"],
+                video: "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&controls=1&showinfo=0&modestbranding=1",
+                statics: [
+                    "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"
+                ]
+            }
+        ];
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderList() {
+            const listContainer = document.getElementById('project-list');
+            listContainer.innerHTML = '';
+
+            projects.forEach((p, index) => {
+                const el = document.createElement('div');
+                el.className = `work-item p-4 rounded-xl border border-white/5 hover:bg-white/5 cursor-pointer transition-all mb-2 ${index === 0 ? 'active' : ''}`;
+                el.onclick = () => loadProject(index);
+                
+                el.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] text-neutral-500 font-mono">0${index + 1}</span>
+                        <i class="ph ph-caret-right text-neutral-600"></i>
+                    </div>
+                    <h3 class="title text-sm font-bold text-neutral-300 transition-colors">${p.title}</h3>
+                    <p class="text-xs text-neutral-500 mt-1 truncate">${p.category}</p>
+                `;
+                
+                // Store reference for active state toggling
+                el.dataset.index = index;
+                listContainer.appendChild(el);
+            });
+        }
+
+        function loadProject(index) {
+            const p = projects[index];
+            
+            // Update Active State in List
+            document.querySelectorAll('.work-item').forEach(item => {
+                item.classList.remove('active');
+                if(parseInt(item.dataset.index) === index) item.classList.add('active');
+            });
+
+            // Update Right Sidebar Info
+            document.getElementById('detail-title').innerText = p.title;
+            document.getElementById('detail-category').innerText = p.category;
+            document.getElementById('detail-client').innerText = p.client;
+            document.getElementById('detail-desc').innerText = p.description;
+            document.getElementById('detail-role').innerText = p.role;
+
+            // Update Tools
+            const toolsContainer = document.getElementById('detail-tools');
+            toolsContainer.innerHTML = '';
+            p.tools.forEach(tool => {
+                const tag = document.createElement('span');
+                tag.className = "text-xs text-neutral-400 border border-white/10 px-2 py-1 rounded bg-white/5";
+                tag.innerText = tool;
+                toolsContainer.appendChild(tag);
+            });
+
+            // Update Video
+            const videoFrame = document.getElementById('main-video');
+            videoFrame.src = p.video;
+
+            // Update Static Grid
+            const grid = document.getElementById('static-grid');
+            grid.innerHTML = '';
+            p.statics.forEach(imgSrc => {
+                const imgDiv = document.createElement('div');
+                imgDiv.className = "group relative aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-neutral-900 cursor-zoom-in";
+                // CLICK EVENT TO OPEN LIGHTBOX
+                imgDiv.onclick = () => openImageModal(imgSrc);
+                
+                imgDiv.innerHTML = `
+                    <img src="${imgSrc}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Static Frame">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="ph ph-magnifying-glass-plus text-white text-3xl drop-shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
+                    </div>
+                `;
+                grid.appendChild(imgDiv);
+            });
+
+            // Scroll visual container to top
+            document.getElementById('visual-container').scrollTop = 0;
+        }
+
+        // --- LIGHTBOX FUNCTIONS ---
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+
+        function openImageModal(src) {
+            modalImg.src = src;
+            modal.classList.remove('hidden');
+            // Force a reflow to enable transition
+            void modal.offsetWidth; 
+            modal.classList.remove('opacity-0');
+            modalImg.classList.remove('scale-95');
+            modalImg.classList.add('scale-100');
+        }
+
+        function closeImageModal() {
+            modal.classList.add('opacity-0');
+            modalImg.classList.remove('scale-100');
+            modalImg.classList.add('scale-95');
+            
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalImg.src = '';
+            }, 300);
+        }
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeImageModal();
+        });
+
+        // Initialize
+        renderList();
+        loadProject(0); 
+
+    </script>
+</body>
+</html>
