@@ -47,7 +47,7 @@
             overflow-x: hidden;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
             -webkit-tap-highlight-color: transparent;
-            /* Ensure body takes full height for vertical centering */
+            /* Center the grid vertically on large screens */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -155,14 +155,15 @@
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
-        /* Grid Layout - SCALABLE UPDATE */
+        /* Grid Layout - OPTIMIZED FOR 1080P FEEL */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
             gap: 1rem;
             padding: 1rem;
             width: 100%;
-            max-width: 1600px; /* Increased from 1200px for larger screens */
+            /* Constrain width to 1200px (standard 1080p layout feel) */
+            max-width: 1200px; 
             margin: 0 auto;
         }
         
@@ -175,13 +176,12 @@
             }
         }
         
-        /* Desktop (Scale to Fill) */
+        /* Desktop */
         @media (min-width: 1024px) {
             .bento-grid {
                 grid-template-columns: repeat(4, 1fr);
-                /* Calculate height to fill viewport minus padding, forcing rows to stretch */
-                height: calc(100vh - 4rem); 
-                grid-template-rows: repeat(3, 1fr); /* Force 3 equal rows to fill height */
+                /* Revert to fixed row heights to preserve Bento aspect ratio */
+                grid-auto-rows: 260px; 
             }
         }
         
@@ -267,63 +267,35 @@
             </div>
         </div>
 
-        <!-- 2. Services / Stack (Refactored for 8 Tools + Description) -->
+        <!-- 2. Capabilities / Services (Updated) -->
         <div class="bento-card col-span-1 md:row-span-2 group">
             <div class="card-inner"></div>
             <div class="card-content p-6 flex flex-col h-full">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-semibold text-white/90">Main Stack</h3>
-                    <i class="ph ph-stack text-neutral-500"></i>
+                    <h3 class="text-lg font-semibold text-white/90">Capabilities</h3>
+                    <i class="ph ph-list-checks text-neutral-500"></i>
                 </div>
                 
-                <!-- 2-Col Grid for Tools -->
-                <div class="flex-1 grid grid-cols-2 gap-2 content-start overflow-y-auto no-scrollbar">
-                    <!-- Tool Item: AE -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('After Effects', 'Motion Graphics')" onmouseleave="resetDesc()">
-                        <i class="ph ph-film-strip text-xl text-purple-400 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Ae</span>
+                <div class="flex-1 flex flex-col gap-4">
+                    <!-- Capability Block -->
+                    <div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 transition-all group/item h-full flex flex-col">
+                        <div class="flex items-center gap-3 mb-4 text-amber-500">
+                             <div class="p-2 rounded-lg bg-amber-500/10">
+                                <i class="ph ph-film-strip text-lg"></i>
+                             </div>
+                             <h4 class="font-bold text-sm uppercase tracking-wider">Motion Design</h4>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="text-xs text-neutral-400 leading-relaxed flex items-start gap-3">
+                                <i class="ph ph-check-circle text-amber-500 mt-0.5 text-base"></i>
+                                <span>Creating SaaS launch videos, product demos, and digital ads.</span>
+                            </li>
+                            <li class="text-xs text-neutral-400 leading-relaxed flex items-start gap-3">
+                                <i class="ph ph-check-circle text-amber-500 mt-0.5 text-base"></i>
+                                <span>Accelerating animation workflows with plugins (Motion Tools, Overlord, etc.).</span>
+                            </li>
+                        </ul>
                     </div>
-                     <!-- Tool Item: Blender -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Blender', '3D Modeling & Sim')" onmouseleave="resetDesc()">
-                        <i class="ph ph-cube text-xl text-orange-400 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Blender</span>
-                    </div>
-                    <!-- Tool Item: Photoshop -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Photoshop', 'Image Editing')" onmouseleave="resetDesc()">
-                        <i class="ph ph-paint-brush-broad text-xl text-blue-400 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Ps</span>
-                    </div>
-                     <!-- Tool Item: Illustrator -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Illustrator', 'Vector Graphics')" onmouseleave="resetDesc()">
-                        <i class="ph ph-pen-nib text-xl text-orange-600 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Ai</span>
-                    </div>
-                    <!-- Tool Item: Rive -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Rive', 'Interactive Motion')" onmouseleave="resetDesc()">
-                        <i class="ph ph-game-controller text-xl text-pink-400 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Rive</span>
-                    </div>
-                    <!-- Tool Item: Lottie -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Lottie', 'Web Animation JSON')" onmouseleave="resetDesc()">
-                        <i class="ph ph-file-code text-xl text-teal-400 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Lottie</span>
-                    </div>
-                    <!-- Tool Item: Premiere -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Premiere Pro', 'Video Editing')" onmouseleave="resetDesc()">
-                        <i class="ph ph-video-camera text-xl text-violet-500 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Pr</span>
-                    </div>
-                    <!-- Tool Item: Canva -->
-                    <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/30 hover:bg-white/10 transition-all cursor-default tool-item" onmouseenter="setDesc('Canva', 'Quick Layouts')" onmouseleave="resetDesc()">
-                        <i class="ph ph-layout text-xl text-cyan-400 mb-1"></i>
-                        <span class="text-[10px] text-neutral-300">Canva</span>
-                    </div>
-                </div>
-
-                <!-- Hover Description Area -->
-                <div class="mt-4 pt-3 border-t border-white/5 min-h-[50px] flex flex-col justify-center">
-                    <div id="main-stack-title" class="text-xs font-bold text-amber-500 tool-desc-fade">Hover a tool</div>
-                    <div id="main-stack-desc" class="text-[10px] text-neutral-500 tool-desc-fade">to see details</div>
                 </div>
             </div>
         </div>
@@ -483,15 +455,7 @@
 
     <script>
         // --- HOVER DESCRIPTION LOGIC ---
-        function setDesc(title, desc) {
-            document.getElementById('main-stack-title').textContent = title;
-            document.getElementById('main-stack-desc').textContent = desc;
-        }
-        function resetDesc() {
-            document.getElementById('main-stack-title').textContent = 'Hover a tool';
-            document.getElementById('main-stack-desc').textContent = 'to see details';
-        }
-
+        // Cleaned up the old 'Main Stack' logic since it's removed.
         function setAiDesc(title, desc) {
              document.getElementById('ai-stack-desc').textContent = title + ": " + desc;
              document.getElementById('ai-stack-desc').classList.add('text-blue-400');
