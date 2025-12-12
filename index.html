@@ -53,8 +53,8 @@
             font-family: 'Inter', sans-serif; /* Default body font */
             background-image: 
                 url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
-                radial-gradient(circle at 100% 0%, #262626 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #262626 0%, transparent 50%);
+                radial-gradient(circle at 100% 0%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(60, 60, 60, 0.4) 0%, transparent 50%);
             background-repeat: repeat, no-repeat, no-repeat;
             background-size: auto, cover, cover;
             -webkit-tap-highlight-color: transparent;
@@ -399,9 +399,11 @@
         <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
             <div class="card-inner"></div>
             <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
-                <source src="https://cdn.coverr.co/videos/coverr-gradient-animated-background-6277/1080p.mp4" type="video/mp4">
+                <!-- Updated with your Cloudinary video -->
+                <source src="https://res.cloudinary.com/dr5hbinpo/video/upload/q_auto/Larucreatives_Newintro_Linked_xsmk9u.mp4" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+
             <div class="card-content p-6 flex flex-col justify-between h-full relative z-20">
                 <div class="flex justify-between items-start">
                     <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-sm md:group-hover:scale-110 transition-transform">
@@ -865,5 +867,3 @@
     </script>
 </body>
 </html>
-
-
