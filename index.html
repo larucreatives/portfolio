@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://res.cloudinary.com">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -86,13 +86,32 @@
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.15), transparent 40%);
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.25), transparent 40%);
                 opacity: 0;
                 transition: opacity 0.5s;
                 z-index: 0;
                 pointer-events: none;
             }
-            .bento-card:hover::before { opacity: 1; }
+            /* Only show if not explicitly disabled */
+            .bento-card:not(.no-glow):hover::before { opacity: 1; }
+
+            .card-content::before {
+                content: "";
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.1), transparent 40%);
+                opacity: 0;
+                transition: opacity 0.5s;
+                z-index: -1; 
+                pointer-events: none;
+            }
+            .bento-card:not(.no-glow):hover .card-content::before { opacity: 1; }
+        }
+
+        /* Disable glow completely for .no-glow items */
+        .bento-card.no-glow::before, 
+        .bento-card.no-glow .card-content::before {
+            display: none;
         }
 
         @media (hover: none) {
@@ -104,6 +123,8 @@
                 opacity: 1; 
                 z-index: 0;
             }
+            /* Also hide on mobile for no-glow cards */
+            .bento-card.no-glow::before { display: none; }
         }
 
         .card-inner { position: absolute; inset: 1px; background: #0f0f0f; border-radius: 23px; z-index: 1; }
@@ -267,7 +288,7 @@
                     </div>
                 </div>
 
-                <div class="mt-6 md:mt-8">
+                <div class="mt-6">
                     <div class="mb-1 flex flex-col sm:flex-row sm:items-baseline gap-2">
                         <span class="text-xl text-neutral-400 font-display font-medium">Hi, I'm</span>
                         <span class="text-xl font-display font-medium bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600 text-glow">Raul Torres</span>
@@ -384,7 +405,7 @@
         </div>
 
         <!-- 3. Featured Work / My Works -->
-        <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
+        <a href="works.html" class="bento-card no-glow col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
             <!-- FIXED: REMOVED CARD-INNER SO VIDEO SHOWS -->
             <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-0 rounded-[23px] inset-[1px]">
                 <source src="https://res.cloudinary.com/dr5hbinpo/video/upload/q_auto/Larucreatives_Webheader_ctksdf.mp4" type="video/mp4">
