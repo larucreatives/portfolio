@@ -31,7 +31,7 @@
                         secondary: '#ea580c', 
                     },
                     animation: {
-                        'marquee': 'marquee 100s linear infinite', // Slower speed for longer list
+                        'marquee': 'marquee 100s linear infinite',
                     },
                     keyframes: {
                         marquee: {
@@ -80,17 +80,31 @@
         }
         
         @media (hover: hover) {
+            /* Border Glow (Behind Inner) */
             .bento-card::before {
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.5), transparent 40%);
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.4), transparent 40%);
                 opacity: 0;
                 transition: opacity 0.5s;
                 z-index: 0;
                 pointer-events: none;
             }
             .bento-card:hover::before { opacity: 1; }
+
+            /* Inner Surface Glow (Restored) */
+            .card-content::before {
+                content: "";
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.2), transparent 40%);
+                opacity: 0;
+                transition: opacity 0.5s;
+                z-index: -1; /* Behind text but above card background */
+                pointer-events: none;
+            }
+            .bento-card:hover .card-content::before { opacity: 1; }
         }
 
         @media (hover: none) {
@@ -105,6 +119,7 @@
         }
 
         .card-inner { position: absolute; inset: 1px; background: #0f0f0f; border-radius: 23px; z-index: 1; }
+        /* card-content needs to be relative and z-index 2 to sit above card-inner */
         .card-content { position: relative; z-index: 2; height: 100%; }
 
         /* --- 2. Animations --- */
@@ -139,24 +154,36 @@
             background: #1a1a1a;
             color: white;
             border-radius: 9999px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            z-index: 1;
         }
+        
         .beam-btn::after {
             content: '';
             position: absolute;
-            inset: -2px;
-            background: conic-gradient(from var(--angle), transparent 0%, transparent 70%, #f59e0b 100%);
+            inset: -1px;
+            background: conic-gradient(from var(--angle), transparent 80%, #f59e0b 100%);
             animation: spin 3s linear infinite;
             border-radius: 9999px;
-            padding: 1px;
+            padding: 1.5px;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
-            opacity: 0; 
-            transition: opacity 0.3s;
+            opacity: 1; 
+            filter: drop-shadow(0 0 2px #f59e0b); 
         }
-        @media (hover: hover) { .beam-btn:hover::after { opacity: 1; } }
+
+        .beam-btn:hover {
+            background-image: linear-gradient(to right, #f59e0b, #ea580c);
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+            color: white;
+            transform: scale(1.05);
+        }
+        .beam-btn:hover::after { opacity: 0; }
+
         @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
         @keyframes spin { from { --angle: 0deg; } to { --angle: 360deg; } }
 
@@ -269,7 +296,10 @@
                     <a href="mailto:hello@alex.design" class="beam-btn px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center min-w-[160px]">
                         Start a Project
                     </a>
-                    <button class="px-8 py-3.5 rounded-full border border-white/10 active:bg-white/5 md:hover:bg-white/5 text-base font-medium transition-colors text-neutral-300 active:scale-95 transform transition-transform text-center min-w-[160px]">
+                    
+                    <!-- View Showreel -->
+                    <button onclick="openShowreel()" class="beam-btn px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center min-w-[160px] gap-2">
+                        <i class="ph ph-play-circle text-xl"></i>
                         View Showreel
                     </button>
                 </div>
@@ -299,6 +329,7 @@
                                 </ul>
                             </div>
                         </div>
+                        
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-orange-500/10 text-orange-500"><i class="ph ph-cube text-lg"></i></div>
@@ -310,6 +341,7 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-purple-500/10 text-purple-500"><i class="ph ph-paint-brush text-lg"></i></div>
@@ -321,6 +353,7 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-pink-500/10 text-pink-500"><i class="ph ph-activity text-lg"></i></div>
@@ -333,6 +366,7 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500"><i class="ph ph-sparkle text-lg"></i></div>
@@ -345,6 +379,7 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-teal-500/10 text-teal-500"><i class="ph ph-desktop text-lg"></i></div>
@@ -361,7 +396,7 @@
             </div>
         </div>
 
-        <!-- 3. Featured Work -->
+        <!-- 3. Featured Work / My Works -->
         <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
             <div class="card-inner"></div>
             <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
@@ -579,7 +614,6 @@
                             </div>
                         </div>
 
-
                         <!-- ITEM SET 2 (Duplicates) -->
                         <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
                             <div class="flex items-center justify-between">
@@ -741,7 +775,62 @@
         </div>
     </div>
 
+    <!-- SHOWREEL MODAL OVERLAY -->
+    <div id="showreel-modal" class="fixed inset-0 z-[100] bg-black/95 hidden flex items-center justify-center p-4 backdrop-blur-md transition-opacity duration-300 opacity-0" onclick="closeShowreel()">
+        <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10" onclick="event.stopPropagation()">
+            <!-- Close Button -->
+            <button onclick="closeShowreel()" class="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-black/50 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+                <i class="ph ph-x text-xl"></i>
+            </button>
+            
+            <!-- Video Placeholder (You can replace src) -->
+            <iframe id="showreel-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <script>
+        // --- SHOWREEL MODAL LOGIC ---
+        const showreelModal = document.getElementById('showreel-modal');
+        const showreelIframe = document.getElementById('showreel-iframe');
+        // Replace with your actual showreel URL (Youtube/Vimeo/Cloudinary)
+        const showreelUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=1&showinfo=0&modestbranding=1";
+
+        function openShowreel() {
+            showreelIframe.src = showreelUrl;
+            showreelModal.classList.remove('hidden');
+            // Force reflow
+            void showreelModal.offsetWidth;
+            showreelModal.classList.remove('opacity-0');
+        }
+
+        function closeShowreel() {
+            showreelModal.classList.add('opacity-0');
+            setTimeout(() => {
+                showreelModal.classList.add('hidden');
+                showreelIframe.src = ''; // Stop video
+            }, 300);
+        }
+
+        // Close on Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeShowreel();
+                closeImageModal(); // Also close image modal if open (from works page logic)
+            }
+        });
+
+        // --- HOVER DESCRIPTION LOGIC ---
+        function setAiDesc(title, desc) {
+             document.getElementById('ai-stack-desc').textContent = title + ": " + desc;
+             document.getElementById('ai-stack-desc').classList.add('text-blue-400');
+             document.getElementById('ai-stack-desc').classList.remove('text-neutral-500');
+        }
+        function resetAiDesc() {
+            document.getElementById('ai-stack-desc').textContent = 'Hover for info';
+            document.getElementById('ai-stack-desc').classList.remove('text-blue-400');
+            document.getElementById('ai-stack-desc').classList.add('text-neutral-500');
+        }
+
         // --- FLASH LIGHT & TEXT ---
         const cards = document.querySelectorAll('.bento-card');
         if (window.matchMedia("(hover: hover)").matches) {
