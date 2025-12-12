@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selected Works - Alex Motion</title>
+    
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+    <!-- Loaded Plus Jakarta Sans (Headlines) and Inter (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
                     },
                     colors: {
                         bg: '#050505',
@@ -29,34 +39,50 @@
         body {
             background-color: #050505;
             color: #ffffff;
-            /* Prevent body scroll, we handle it in columns */
             overflow: hidden; 
             height: 100vh;
+            font-family: 'Inter', sans-serif; /* Default Body Font */
+            /* Match Main Page Background: Dual Radial Gradients */
+            background-image: 
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
+                radial-gradient(circle at 100% 0%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(60, 60, 60, 0.4) 0%, transparent 50%);
+            background-repeat: repeat, no-repeat, no-repeat;
+            background-size: auto, cover, cover;
         }
 
-        /* Custom Scrollbar for the columns */
-        .scroller::-webkit-scrollbar {
-            width: 6px;
-        }
-        .scroller::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .scroller::-webkit-scrollbar-thumb {
-            background: #222;
-            border-radius: 10px;
-        }
-        .scroller::-webkit-scrollbar-thumb:hover {
-            background: #333;
-        }
+        /* Custom Scrollbar */
+        .scroller::-webkit-scrollbar { width: 6px; }
+        .scroller::-webkit-scrollbar-track { background: transparent; }
+        .scroller::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+        .scroller::-webkit-scrollbar-thumb:hover { background: #333; }
 
-        /* Active State for List Item */
+        /* Work Item Active State */
         .work-item.active {
             background-color: rgba(255, 255, 255, 0.08);
             border-color: rgba(245, 158, 11, 0.5);
         }
-        .work-item.active .title {
-            color: #f59e0b;
+        .work-item.active .title { color: #f59e0b; }
+
+        /* Flashlight effect for Work Items - White/Gray Glow */
+        .work-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
+        .work-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.1), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .work-item:hover::before { opacity: 1; }
+        .work-item > * { position: relative; z-index: 1; }
 
         /* --- ENTRANCE ANIMATION (Blur Slide Up) --- */
         .animate-enter {
@@ -67,14 +93,9 @@
         }
 
         @keyframes enterBlur {
-            to {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0);
-            }
+            to { opacity: 1; filter: blur(0); transform: translateY(0); }
         }
 
-        /* Stagger Delays */
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
@@ -82,13 +103,13 @@
 </head>
 <body class="flex flex-col h-screen selection:bg-amber-500/30">
 
-    <!-- Top Navigation (Back to Home) -->
-    <div class="h-16 border-b border-white/5 flex items-center px-6 justify-between bg-[#050505] z-50 shrink-0 animate-enter">
+    <!-- Top Navigation -->
+    <div class="h-16 border-b border-white/5 flex items-center px-6 justify-between bg-[#050505]/80 backdrop-blur-sm z-50 shrink-0 animate-enter">
         <a href="index.html" class="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group">
             <div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors">
                 <i class="ph ph-arrow-left"></i>
             </div>
-            <span class="text-sm font-medium">Back to Portfolio</span>
+            <span class="text-sm font-medium font-body">Back to Portfolio</span>
         </a>
         <div class="text-sm font-mono text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
             Selected Works
@@ -99,8 +120,9 @@
     <div class="flex flex-1 overflow-hidden">
         
         <!-- COLUMN 1: Works List (Left) -->
-        <div class="w-80 border-r border-white/5 flex flex-col bg-[#080808] animate-enter delay-100">
+        <div class="w-[25%] min-w-[320px] border-r border-white/5 flex flex-col bg-[#080808]/50 animate-enter delay-100 backdrop-blur-sm">
             <div class="p-4 border-b border-white/5">
+                <!-- Kept font-mono for UI label -->
                 <h2 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Project List</h2>
             </div>
             <div class="flex-1 overflow-y-auto scroller p-3 space-y-2" id="project-list">
@@ -108,13 +130,12 @@
             </div>
         </div>
 
-        <!-- COLUMN 2: Visuals (Center - Scrollable) -->
-        <div class="flex-1 overflow-y-auto scroller bg-[#050505] relative animate-enter delay-200" id="visual-container">
-            <div class="max-w-5xl mx-auto p-8 md:p-12">
+        <!-- COLUMN 2: Visuals (Center) -->
+        <div class="flex-1 overflow-y-auto scroller bg-transparent relative animate-enter delay-200" id="visual-container">
+            <div class="w-full h-full mx-auto p-[4vw]">
                 <!-- Main Video Area -->
                 <div class="w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl mb-8 relative group">
                     <iframe id="main-video" src="" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                    <!-- Loading State / Placeholder -->
                     <div id="video-placeholder" class="absolute inset-0 flex items-center justify-center bg-neutral-900 text-neutral-700 pointer-events-none -z-10">
                         <i class="ph ph-film-strip text-4xl animate-pulse"></i>
                     </div>
@@ -122,7 +143,8 @@
 
                 <!-- Static Frames Section -->
                 <div class="mb-6 flex items-center gap-4">
-                    <h3 class="text-lg font-bold text-white">Static Frames</h3>
+                    <!-- Applied font-display to Headline -->
+                    <h3 class="text-lg font-display font-bold text-white">Static Frames</h3>
                     <div class="h-px flex-1 bg-white/10"></div>
                 </div>
 
@@ -131,58 +153,45 @@
                     <!-- Images Injected JS -->
                 </div>
                 
-                <div class="h-32"></div> <!-- Bottom Spacer -->
+                <div class="h-32"></div>
             </div>
         </div>
 
-        <!-- COLUMN 3: Details (Right - Sticky) -->
-        <div class="w-80 border-l border-white/5 bg-[#080808] flex flex-col animate-enter delay-300">
+        <!-- COLUMN 3: Details (Right) -->
+        <div class="w-[25%] min-w-[320px] border-l border-white/5 bg-[#080808]/50 flex flex-col animate-enter delay-300 backdrop-blur-sm">
             <div class="flex-1 overflow-y-auto scroller p-6">
                 
                 <!-- Project Title & Meta -->
                 <div class="mb-8">
                     <span id="detail-category" class="text-xs font-mono text-amber-500 border border-amber-500/20 bg-amber-500/5 px-2 py-1 rounded mb-3 inline-block">Category</span>
-                    <h1 id="detail-title" class="text-2xl font-bold text-white leading-tight mb-2">Project Title</h1>
-                    <p id="detail-client" class="text-sm text-neutral-400">Client Name</p>
+                    <!-- Applied font-display to Project Title -->
+                    <h1 id="detail-title" class="text-2xl font-display font-bold text-white leading-tight mb-2">Project Title</h1>
+                    <p id="detail-client" class="text-sm text-neutral-400 font-body">Client Name</p>
                 </div>
 
                 <div class="space-y-8">
-                    <!-- Description -->
                     <div>
                         <h4 class="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-3">Description</h4>
-                        <p id="detail-desc" class="text-sm text-neutral-300 leading-relaxed">
-                            Project description goes here.
-                        </p>
+                        <p id="detail-desc" class="text-sm font-body text-neutral-300 leading-relaxed">Description...</p>
                     </div>
-
-                    <!-- Tools -->
                     <div>
                         <h4 class="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-3">Tools Used</h4>
-                        <div id="detail-tools" class="flex flex-wrap gap-2">
-                            <!-- Tags Injected JS -->
-                        </div>
+                        <div id="detail-tools" class="flex flex-wrap gap-2"></div>
                     </div>
-
-                    <!-- Role -->
                     <div>
                         <h4 class="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-3">My Role</h4>
-                        <p id="detail-role" class="text-sm text-white font-medium">Lead Animator</p>
+                        <p id="detail-role" class="text-sm font-body text-white font-medium">Role</p>
                     </div>
                 </div>
 
             </div>
             
-            <!-- Bottom CTA -->
-            <div class="p-6 border-t border-white/5 bg-[#0a0a0a]">
-                <button class="w-full py-3 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors">
-                    Visit Live Site <i class="ph ph-arrow-up-right ml-1"></i>
-                </button>
-            </div>
+            <!-- Removed Bottom CTA Button -->
         </div>
 
     </div>
 
-    <!-- LIGHTBOX MODAL OVERLAY -->
+    <!-- LIGHTBOX MODAL -->
     <div id="image-modal" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeImageModal()">
         <div class="relative max-w-7xl max-h-[90vh]">
             <img id="modal-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300 transform" onclick="event.stopPropagation()">
@@ -193,17 +202,17 @@
     </div>
 
     <script>
-        // --- DATA ---
+        // --- YOUR PROJECTS CONFIGURATION ---
         const projects = [
             {
                 id: 1,
-                title: "Areglaw AI - General Chat",
+                title: "Lumina App Interface",
                 category: "UI Motion",
-                client: "Areglaw AI",
+                client: "Lumina Financial",
                 role: "Lead Motion Designer",
-                description: "Areglaw.ai needed a launch video that balanced high-energy hype with a clean, minimalist aesthetic. I utilized DeepGlow accents, sharp transitions, and dynamic typography to create a bold, tech-forward look. The result is a futuristic, professional animation that positions Areglaw.ai as a leader in legal innovation.",
-                tools: ["After Effects", "Illustrator", "Figma"],
-                video: "https://player.cloudinary.com/embed/?cloud_name=dr5hbinpo&public_id=Saas_AreglawWorkSample_ladcxs&profile=cld-default", 
+                description: "A comprehensive motion system for a fintech dashboard. We focused heavily on micro-interactions for data visualization, ensuring that charts load with a satisfying easing curve.",
+                tools: ["After Effects", "Lottie", "Figma"],
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=1&showinfo=0&modestbranding=1", 
                 statics: [
                     "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
                     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
@@ -212,13 +221,13 @@
             },
             {
                 id: 2,
-                title: "Remotica - Launch Video",
-                category: "Saas",
-                client: "Remotica PH",
-                role: "Motion Designer",
-                description: "I created a sleek, minimalist SaaS video for Remotica.ph in anticipation of their upcoming launch. The goal was to showcase the platform's features while striking a perfect balance between clinical precision and modern aesthetics. Every design element was carefully crafted to convey simplicity and premium quality, all while highlighting their cutting-edge AI tools. This approach positions Remotica.ph as a standout in an increasingly competitive space.",
-                tools: ["After Effects", "Figma"],
-                video: "https://player.cloudinary.com/embed/?cloud_name=dr5hbinpo&public_id=Saas_Remotica_WorkSample_uj5na4&profile=cld-default",
+                title: "Nike Air Max Promo",
+                category: "3D Animation",
+                client: "Nike",
+                role: "3D Generalist",
+                description: "High-energy 3D product reveal created in Cinema 4D. The challenge was to simulate the breathable fabric texture realistically while maintaining a fast render time for social media delivery.",
+                tools: ["Cinema 4D", "Redshift", "Premiere"],
+                video: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=0&controls=1&showinfo=0&modestbranding=1",
                 statics: [
                     "https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=1200&auto=format&fit=crop",
                     "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop"
@@ -230,7 +239,7 @@
                 category: "Visual Identity",
                 client: "Spotify",
                 role: "Art Director",
-                description: "An experimental exploration of kinetic typography. Using generative design principles, I created a system where the music beat drives the distortion of the type.",
+                description: "An experimental exploration of kinetic typography using generative design principles.",
                 tools: ["After Effects", "Javascript", "Illustrator"],
                 video: "https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=0&controls=1&showinfo=0&modestbranding=1",
                 statics: [
@@ -245,7 +254,7 @@
                 category: "Personal",
                 client: "Self-Initiated",
                 role: "Creator",
-                description: "A series of satisfying loops exploring soft body physics and cloth simulations to create calming, seamless visuals for screens.",
+                description: "A series of satisfying loops exploring soft body physics and cloth simulations.",
                 tools: ["Blender", "Cycles", "DaVinci"],
                 video: "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&controls=1&showinfo=0&modestbranding=1",
                 statics: [
@@ -255,27 +264,25 @@
             }
         ];
 
-        // --- RENDER FUNCTIONS ---
-
+        // --- RENDER LOGIC ---
         function renderList() {
             const listContainer = document.getElementById('project-list');
             listContainer.innerHTML = '';
 
             projects.forEach((p, index) => {
                 const el = document.createElement('div');
-                el.className = `work-item p-4 rounded-xl border border-white/5 hover:bg-white/5 cursor-pointer transition-all mb-2 ${index === 0 ? 'active' : ''}`;
+                // Added flashlight 'work-item' class
+                el.className = `work-item p-4 rounded-xl border border-white/5 bg-white/5 cursor-pointer transition-all mb-2 ${index === 0 ? 'active' : ''}`;
                 el.onclick = () => loadProject(index);
                 
                 el.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
+                    <div class="flex justify-between items-start mb-2 pointer-events-none">
                         <span class="text-[10px] text-neutral-500 font-mono">0${index + 1}</span>
                         <i class="ph ph-caret-right text-neutral-600"></i>
                     </div>
-                    <h3 class="title text-sm font-bold text-neutral-300 transition-colors">${p.title}</h3>
-                    <p class="text-xs text-neutral-500 mt-1 truncate">${p.category}</p>
+                    <h3 class="title text-sm font-display font-bold text-neutral-300 transition-colors pointer-events-none">${p.title}</h3>
+                    <p class="text-xs text-neutral-500 mt-1 truncate pointer-events-none font-body">${p.category}</p>
                 `;
-                
-                // Store reference for active state toggling
                 el.dataset.index = index;
                 listContainer.appendChild(el);
             });
@@ -284,44 +291,39 @@
         function loadProject(index) {
             const p = projects[index];
             
-            // Update Active State in List
             document.querySelectorAll('.work-item').forEach(item => {
                 item.classList.remove('active');
                 if(parseInt(item.dataset.index) === index) item.classList.add('active');
             });
 
-            // Update Right Sidebar Info
             document.getElementById('detail-title').innerText = p.title;
             document.getElementById('detail-category').innerText = p.category;
             document.getElementById('detail-client').innerText = p.client;
             document.getElementById('detail-desc').innerText = p.description;
             document.getElementById('detail-role').innerText = p.role;
 
-            // Update Tools
             const toolsContainer = document.getElementById('detail-tools');
             toolsContainer.innerHTML = '';
             p.tools.forEach(tool => {
                 const tag = document.createElement('span');
-                tag.className = "text-xs text-neutral-400 border border-white/10 px-2 py-1 rounded bg-white/5";
+                tag.className = "text-xs text-neutral-400 border border-white/10 px-2 py-1 rounded bg-white/5 font-mono";
                 tag.innerText = tool;
                 toolsContainer.appendChild(tag);
             });
 
-            // Update Video
             const videoFrame = document.getElementById('main-video');
             videoFrame.src = p.video;
 
-            // Update Static Grid
             const grid = document.getElementById('static-grid');
             grid.innerHTML = '';
-            p.statics.forEach(imgSrc => {
+            p.statics.forEach((imgSrc, i) => {
                 const imgDiv = document.createElement('div');
                 imgDiv.className = "group relative aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-neutral-900 cursor-zoom-in";
-                // CLICK EVENT TO OPEN LIGHTBOX
                 imgDiv.onclick = () => openImageModal(imgSrc);
+                const loadingAttr = i === 0 ? 'eager' : 'lazy';
                 
                 imgDiv.innerHTML = `
-                    <img src="${imgSrc}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Static Frame">
+                    <img src="${imgSrc}" loading="${loadingAttr}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Static Frame">
                     <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <i class="ph ph-magnifying-glass-plus text-white text-3xl drop-shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
                     </div>
@@ -329,18 +331,16 @@
                 grid.appendChild(imgDiv);
             });
 
-            // Scroll visual container to top
             document.getElementById('visual-container').scrollTop = 0;
         }
 
-        // --- LIGHTBOX FUNCTIONS ---
+        // --- LIGHTBOX ---
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
 
         function openImageModal(src) {
             modalImg.src = src;
             modal.classList.remove('hidden');
-            // Force a reflow to enable transition
             void modal.offsetWidth; 
             modal.classList.remove('opacity-0');
             modalImg.classList.remove('scale-95');
@@ -351,17 +351,25 @@
             modal.classList.add('opacity-0');
             modalImg.classList.remove('scale-100');
             modalImg.classList.add('scale-95');
-            
-            // Wait for transition to finish before hiding
             setTimeout(() => {
                 modal.classList.add('hidden');
                 modalImg.src = '';
             }, 300);
         }
         
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeImageModal();
+        });
+
+        // --- Flashlight Effect Logic ---
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.work-item').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
         });
 
         // Initialize
@@ -370,5 +378,4 @@
 
     </script>
 </body>
-
 </html>
