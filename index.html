@@ -12,9 +12,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://res.cloudinary.com">
     
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
-    <!-- Loaded Plus Jakarta Sans (Headlines) and Inter (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
@@ -33,7 +33,7 @@
                         secondary: '#ea580c', 
                     },
                     animation: {
-                        'marquee': 'marquee 100s linear infinite',
+                        'marquee': 'marquee 50s linear infinite',
                     },
                     keyframes: {
                         marquee: {
@@ -50,7 +50,6 @@
             background-color: #050505;
             color: #ffffff;
             overflow-x: hidden;
-            font-family: 'Inter', sans-serif; /* Default body font */
             background-image: 
                 url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
                 radial-gradient(circle at 100% 0%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
@@ -87,25 +86,13 @@
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.25), transparent 40%);
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.15), transparent 40%);
                 opacity: 0;
                 transition: opacity 0.5s;
                 z-index: 0;
                 pointer-events: none;
             }
             .bento-card:hover::before { opacity: 1; }
-
-            .card-content::before {
-                content: "";
-                position: absolute;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.1), transparent 40%);
-                opacity: 0;
-                transition: opacity 0.5s;
-                z-index: -1; 
-                pointer-events: none;
-            }
-            .bento-card:hover .card-content::before { opacity: 1; }
         }
 
         @media (hover: none) {
@@ -113,7 +100,7 @@
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(to bottom right, rgba(255, 158, 11, 0.05), transparent 50%);
+                background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), transparent 50%);
                 opacity: 1; 
                 z-index: 0;
             }
@@ -132,10 +119,11 @@
         }
         @keyframes textBlurDown { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
+        /* Marquee Animation Hardcoded */
         .animate-marquee {
             display: flex;
             width: max-content;
-            animation: marquee-scroll 100s linear infinite;
+            animation: marquee-scroll 50s linear infinite;
             will-change: transform;
         }
         .animate-marquee:hover {
@@ -153,10 +141,10 @@
             background: #1a1a1a;
             color: white;
             border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
             transition: all 0.3s ease;
             z-index: 1;
-            font-family: 'Plus Jakarta Sans', sans-serif; /* Button Text Font */
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         
         .beam-btn::after {
@@ -262,7 +250,7 @@
             <div class="card-content p-8 md:p-10 flex flex-col justify-between h-full relative z-20">
                 <div class="flex justify-between items-start">
                     <!-- Large Photo Avatar -->
-                    <div class="w-32 h-32 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-[2px] shadow-2xl shadow-amber-500/20 md:group-hover:-rotate-3 transition-transform duration-500 shrink-0 mr-4">
+                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-[2px] shadow-2xl shadow-amber-500/20 md:group-hover:-rotate-3 transition-transform duration-500 shrink-0 mr-4">
                          <div class="w-full h-full rounded-2xl bg-black overflow-hidden relative">
                              <img src="https://res.cloudinary.com/dr5hbinpo/image/upload/v1765456991/Raul_Website_bvyaoz.png" 
                                   alt="Raul Profile" 
@@ -292,7 +280,7 @@
                     </p>
                 </div>
 
-                <div class="mt-auto pt-6 pb-4 flex flex-wrap items-center gap-3 sm:gap-4">
+                <div class="mt-auto pt-6 pb-2 flex flex-wrap items-center gap-3 sm:gap-4 relative z-30">
                     <a href="mailto:hello@alex.design" class="beam-btn px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center min-w-[160px]">
                         Start a Project
                     </a>
@@ -397,12 +385,11 @@
 
         <!-- 3. Featured Work / My Works -->
         <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
-            <div class="card-inner"></div>
-            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
-                <!-- Updated with your Cloudinary video -->
-                <source src="https://res.cloudinary.com/dr5hbinpo/video/upload/q_auto/Larucreatives_Newintro_Linked_xsmk9u.mp4" type="video/mp4">
+            <!-- FIXED: REMOVED CARD-INNER SO VIDEO SHOWS -->
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-0 rounded-[23px] inset-[1px]">
+                <source src="https://res.cloudinary.com/dr5hbinpo/video/upload/q_auto/Larucreatives_Webheader_ctksdf.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10 pointer-events-none rounded-[23px] inset-[1px]"></div>
 
             <div class="card-content p-6 flex flex-col justify-between h-full relative z-20">
                 <div class="flex justify-between items-start">
@@ -414,8 +401,8 @@
                     </div>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-display font-bold text-white mb-2">My Works</h3>
-                    <p class="text-sm text-white/70 font-body">Explore case studies &rarr;</p>
+                    <h3 class="text-2xl font-display font-bold text-white mb-2 shadow-black drop-shadow-md">My Works</h3>
+                    <p class="text-sm text-white/90 font-body drop-shadow-md">Explore case studies &rarr;</p>
                 </div>
             </div>
         </a>
