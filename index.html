@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Alex Motion - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <meta name="description" content="Raul Torres - Motion Designer specializing in UI animation, 3D interactions, and visual storytelling for SaaS and digital products.">
+    <title>Raul Torres - Motion Designer</title>
+    
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -18,23 +27,17 @@
                         bg: '#050505',
                         card: '#0f0f0f',
                         border: '#1f1f1f',
-                        primary: '#f59e0b', // Amber 500
-                        secondary: '#ea580c', // Orange 600
+                        primary: '#f59e0b', 
+                        secondary: '#ea580c', 
                     },
                     animation: {
-                        'marquee': 'marquee 30s linear infinite',
-                        'blob': 'blob 10s infinite',
+                        'marquee': 'marquee 100s linear infinite', // Slower speed for longer list
                     },
                     keyframes: {
                         marquee: {
                             '0%': { transform: 'translateX(0)' },
                             '100%': { transform: 'translateX(-50%)' },
-                        },
-                        blob: {
-                            '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                        },
+                        }
                     }
                 }
             }
@@ -45,7 +48,12 @@
             background-color: #050505;
             color: #ffffff;
             overflow-x: hidden;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            background-image: 
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
+                radial-gradient(circle at 100% 0%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(60, 60, 60, 0.4) 0%, transparent 50%);
+            background-repeat: repeat, no-repeat, no-repeat;
+            background-size: auto, cover, cover;
             -webkit-tap-highlight-color: transparent;
             min-height: 100vh;
             display: flex;
@@ -53,22 +61,13 @@
             justify-content: center;
         }
 
-        /* Scrollbar Styling for Lists */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+        /* Scrollbar Styling */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
-        /* --- 1. Flashlight Effect & Hover Animations --- */
+        /* --- 1. Flashlight Effect --- */
         .bento-card {
             --mouse-x: -100px;
             --mouse-y: -100px;
@@ -77,7 +76,6 @@
             border-radius: 24px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            /* Smooth transition for transform and shadows */
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
@@ -86,7 +84,7 @@
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.3), transparent 40%);
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.5), transparent 40%);
                 opacity: 0;
                 transition: opacity 0.5s;
                 z-index: 0;
@@ -100,27 +98,16 @@
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(to bottom right, rgba(245, 158, 11, 0.15), transparent 50%);
+                background: linear-gradient(to bottom right, rgba(245, 158, 11, 0.25), transparent 50%);
                 opacity: 1; 
                 z-index: 0;
             }
         }
 
-        .card-inner {
-            position: absolute;
-            inset: 1px;
-            background: #0f0f0f;
-            border-radius: 23px;
-            z-index: 1;
-        }
+        .card-inner { position: absolute; inset: 1px; background: #0f0f0f; border-radius: 23px; z-index: 1; }
+        .card-content { position: relative; z-index: 2; height: 100%; }
 
-        .card-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-        }
-
-        /* --- 2. Text Animation --- */
+        /* --- 2. Animations --- */
         .char-blur {
             display: inline-block;
             opacity: 0;
@@ -128,9 +115,21 @@
             transform: translateY(-20px);
             animation: textBlurDown 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
         }
-        
-        @keyframes textBlurDown {
-            to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        @keyframes textBlurDown { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+
+        /* Marquee Animation Hardcoded */
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 100s linear infinite;
+            will-change: transform;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* --- 3. Border Beam --- */
@@ -142,7 +141,6 @@
             border-radius: 9999px;
             border: 1px solid rgba(255,255,255,0.05);
         }
-        
         .beam-btn::after {
             content: '';
             position: absolute;
@@ -158,21 +156,43 @@
             opacity: 0; 
             transition: opacity 0.3s;
         }
-
         @media (hover: hover) { .beam-btn:hover::after { opacity: 1; } }
-        /* Grid Layout - RESPONSIVE WIDTH LOGIC */
+        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        @keyframes spin { from { --angle: 0deg; } to { --angle: 360deg; } }
+
+        .marquee-mask {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* --- 4. Entrance Animation --- */
+        .animate-enter {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(30px);
+            animation: enterBlur 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+        }
+        @keyframes enterBlur {
+            to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+
+        /* Grid Layout */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
             gap: 1rem;
             padding: 1rem;
             width: 100%;
-            /* 1. Base Max-Width for standard laptops/monitors (until 1200px content) */
             max-width: 1200px; 
             margin: 0 auto;
         }
-        
-        /* Tablet */
         @media (min-width: 768px) {
             .bento-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -180,8 +200,6 @@
                 padding: 1.5rem;
             }
         }
-        
-        /* Desktop */
         @media (min-width: 1024px) {
             .bento-grid {
                 grid-template-columns: repeat(4, 1fr);
@@ -189,22 +207,17 @@
                 padding: 2rem;
             }
         }
-
-        /* 2. Large Screens (1440p+ territory / 1600px+) */
-        /* Uncap the width to fill the screen */
         @media (min-width: 1600px) {
             .bento-grid {
-                max-width: 100%; /* Unlock width */
-                padding: 4rem;   /* Add breathing room */
+                max-width: 100%; 
+                padding: 4rem;
                 gap: 1.5rem;
-                grid-auto-rows: 300px; /* Scale vertical height to match */
+                grid-auto-rows: 300px;
             }
         }
         
-        /* Tooltip Fade */
-        .tool-desc-fade {
-            transition: opacity 0.2s ease;
-        }
+        .tool-desc-fade { transition: opacity 0.2s ease; }
+        .text-glow { text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
 
     </style>
 </head>
@@ -217,16 +230,18 @@
     <div class="bento-grid relative z-10">
 
         <!-- 1. Profile / Hero -->
-        <div class="bento-card col-span-1 md:col-span-2 md:row-span-2 group">
+        <div class="bento-card col-span-1 md:col-span-2 md:row-span-2 group animate-enter">
             <div class="card-inner"></div>
             <div class="card-content p-8 md:p-10 flex flex-col justify-between h-full relative z-20">
                 <div class="flex justify-between items-start">
                     <!-- Large Photo Avatar -->
-                    <div class="w-32 h-32 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-[2px] shadow-2xl shadow-amber-500/20 md:group-hover:-rotate-3 transition-transform duration-500 shrink-0">
+                    <div class="w-32 h-32 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-[2px] shadow-2xl shadow-amber-500/20 md:group-hover:-rotate-3 transition-transform duration-500 shrink-0 mr-4">
                          <div class="w-full h-full rounded-2xl bg-black overflow-hidden relative">
                              <img src="https://res.cloudinary.com/dr5hbinpo/image/upload/v1765456991/Raul_Website_bvyaoz.png" 
                                   alt="Raul Profile" 
-                                  class="w-full h-full object-cover object-top md:group-hover:scale-110 transition-transform duration-700">
+                                  width="224" height="224"
+                                  loading="eager"
+                                  class="w-full h-full object-cover object-center scale-125 md:group-hover:scale-135 transition-transform duration-700">
                          </div>
                     </div>
 
@@ -237,28 +252,32 @@
                     </div>
                 </div>
 
-                <div class="mt-10 md:mt-12">
+                <div class="mt-6 md:mt-8">
+                    <div class="mb-1 flex flex-col sm:flex-row sm:items-baseline gap-2">
+                        <span class="text-xl text-neutral-400 font-medium">Hi, I'm</span>
+                        <span class="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600 text-glow">Raul Torres</span>
+                    </div>
+                    
                     <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 leading-tight animated-text">Motion Designer</h1>
-                    <!-- Increased max-width to allow text to flow on fewer lines -->
+                    
                     <p class="text-neutral-300 max-w-2xl leading-relaxed text-base md:text-lg">
                         Crafting digital experiences with premium fluidity. Specializing in UI animation, interaction, and visual storytelling.
                     </p>
                 </div>
 
-                <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <!-- NEW CTA: Start a Project -->
-                    <a href="mailto:hello@alex.design" class="beam-btn w-full sm:w-auto px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center">
+                <div class="mt-auto pt-6 pb-4 flex flex-wrap items-center gap-3 sm:gap-4">
+                    <a href="mailto:hello@alex.design" class="beam-btn px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center min-w-[160px]">
                         Start a Project
                     </a>
-                    <button class="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/10 active:bg-white/5 md:hover:bg-white/5 text-base font-medium transition-colors text-neutral-300 active:scale-95 transform transition-transform text-center">
+                    <button class="px-8 py-3.5 rounded-full border border-white/10 active:bg-white/5 md:hover:bg-white/5 text-base font-medium transition-colors text-neutral-300 active:scale-95 transform transition-transform text-center min-w-[160px]">
                         View Showreel
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- 2. Capabilities (New Hover-Reveal List) -->
-        <div class="bento-card col-span-1 md:row-span-2 group">
+        <!-- 2. Capabilities -->
+        <div class="bento-card col-span-1 md:row-span-2 group animate-enter delay-100">
             <div class="card-inner"></div>
             <div class="card-content p-6 flex flex-col h-full">
                 <div class="flex justify-between items-center mb-6">
@@ -268,16 +287,11 @@
                 
                 <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
                     <div class="flex flex-col gap-3">
-                        
-                        <!-- Capability 1: Motion Design -->
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
-                                 <div class="p-2 rounded-lg bg-amber-500/10 text-amber-500">
-                                    <i class="ph ph-film-strip text-lg"></i>
-                                 </div>
+                                 <div class="p-2 rounded-lg bg-amber-500/10 text-amber-500"><i class="ph ph-film-strip text-lg"></i></div>
                                  <h4 class="font-bold text-base text-white group-hover/item:text-amber-500 transition-colors">Motion Design</h4>
                             </div>
-                            <!-- Hidden Desc -->
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
                                     <li class="text-sm text-neutral-300 leading-relaxed">• Creating SaaS launch videos, product demos, and digital ads.</li>
@@ -285,48 +299,33 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <!-- Capability 2: Blender (3D) -->
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
-                                 <div class="p-2 rounded-lg bg-orange-500/10 text-orange-500">
-                                    <i class="ph ph-cube text-lg"></i>
-                                 </div>
+                                 <div class="p-2 rounded-lg bg-orange-500/10 text-orange-500"><i class="ph ph-cube text-lg"></i></div>
                                  <h4 class="font-bold text-base text-white group-hover/item:text-orange-500 transition-colors">Blender (3D)</h4>
                             </div>
-                            <!-- Hidden Desc -->
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
                                     <li class="text-sm text-neutral-300 leading-relaxed">• Producing basic 3D product animations and high-quality static renders.</li>
                                 </ul>
                             </div>
                         </div>
-
-                        <!-- Capability 3: Graphic Design -->
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
-                                 <div class="p-2 rounded-lg bg-purple-500/10 text-purple-500">
-                                    <i class="ph ph-paint-brush text-lg"></i>
-                                 </div>
+                                 <div class="p-2 rounded-lg bg-purple-500/10 text-purple-500"><i class="ph ph-paint-brush text-lg"></i></div>
                                  <h4 class="font-bold text-base text-white group-hover/item:text-purple-500 transition-colors">Graphic Design</h4>
                             </div>
-                            <!-- Hidden Desc -->
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
                                     <li class="text-sm text-neutral-300 leading-relaxed">• Designing polished digital assets for web banners, social media, and presentations.</li>
                                 </ul>
                             </div>
                         </div>
-
-                        <!-- Capability 4: Web Animation -->
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
-                                 <div class="p-2 rounded-lg bg-pink-500/10 text-pink-500">
-                                    <i class="ph ph-activity text-lg"></i>
-                                 </div>
+                                 <div class="p-2 rounded-lg bg-pink-500/10 text-pink-500"><i class="ph ph-activity text-lg"></i></div>
                                  <h4 class="font-bold text-base text-white group-hover/item:text-pink-500 transition-colors">Web Animation</h4>
                             </div>
-                            <!-- Hidden Desc -->
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
                                     <li class="text-sm text-neutral-300 leading-relaxed">• Converting AE comps to Lottie files (Bodymovin, LottieFiles).</li>
@@ -334,16 +333,11 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <!-- Capability 5: AI Integration -->
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
-                                 <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                                    <i class="ph ph-sparkle text-lg"></i>
-                                 </div>
+                                 <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500"><i class="ph ph-sparkle text-lg"></i></div>
                                  <h4 class="font-bold text-base text-white group-hover/item:text-blue-500 transition-colors">AI Integration</h4>
                             </div>
-                            <!-- Hidden Desc -->
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
                                     <li class="text-sm text-neutral-300 leading-relaxed">• Using LLMs (ChatGPT, Gemini) for prompt refinement, scripts, and storyboards.</li>
@@ -351,40 +345,29 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <!-- Capability 6: Web Design -->
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
-                                 <div class="p-2 rounded-lg bg-teal-500/10 text-teal-500">
-                                    <i class="ph ph-desktop text-lg"></i>
-                                 </div>
+                                 <div class="p-2 rounded-lg bg-teal-500/10 text-teal-500"><i class="ph ph-desktop text-lg"></i></div>
                                  <h4 class="font-bold text-base text-white group-hover/item:text-teal-500 transition-colors">Web Design (Framer)</h4>
                             </div>
-                            <!-- Hidden Desc -->
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
                                     <li class="text-sm text-neutral-300 leading-relaxed">• Building responsive, high-quality landing pages with smooth interactions.</li>
                                 </ul>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. Featured Work Button (Link to works.html) with Video Background (RESTORED) -->
-        <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative">
+        <!-- 3. Featured Work -->
+        <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
             <div class="card-inner"></div>
-            
-            <!-- VIDEO BACKGROUND (Standard Video Tag) -->
             <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
                 <source src="https://cdn.coverr.co/videos/coverr-gradient-animated-background-6277/1080p.mp4" type="video/mp4">
             </video>
-            
-            <!-- GRADIENT OVERLAY FOR TEXT READABILITY -->
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
-
             <div class="card-content p-6 flex flex-col justify-between h-full relative z-20">
                 <div class="flex justify-between items-start">
                     <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-sm md:group-hover:scale-110 transition-transform">
@@ -401,59 +384,52 @@
             </div>
         </a>
 
-        <!-- 4. Tools Card -->
-        <div class="bento-card col-span-1 group">
+        <!-- 4. Tools -->
+        <div class="bento-card col-span-1 group animate-enter delay-300">
             <div class="card-inner"></div>
             <div class="absolute inset-0 bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 opacity-50"></div>
-            
             <div class="card-content p-6 flex flex-col h-full relative z-20">
                  <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xl font-semibold text-white/90">Tools</h3>
                     <i class="ph ph-wrench text-neutral-400 text-xl"></i>
                 </div>
-                
-                <div class="flex-1 grid grid-cols-3 gap-2 content-center">
-                     <!-- Ae -->
-                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-purple-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="After Effects">
-                        <i class="ph ph-film-strip text-2xl text-purple-500"></i>
-                        <span class="text-[10px] text-neutral-400 mt-1">Ae</span>
-                     </div>
-                     <!-- Blender -->
-                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-orange-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Blender">
-                        <i class="ph ph-cube text-2xl text-orange-500"></i>
-                        <span class="text-[10px] text-neutral-400 mt-1">3D</span>
-                     </div>
-                     <!-- Premiere -->
-                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-indigo-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Premiere Pro">
-                        <i class="ph ph-video-camera text-2xl text-indigo-500"></i>
-                        <span class="text-[10px] text-neutral-400 mt-1">Pr</span>
-                     </div>
-                     <!-- Photoshop -->
-                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-blue-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Photoshop">
-                        <i class="ph ph-paint-brush-broad text-2xl text-blue-500"></i>
-                        <span class="text-[10px] text-neutral-400 mt-1">Ps</span>
-                     </div>
-                     <!-- Canva -->
-                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-cyan-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Canva">
-                        <i class="ph ph-layout text-2xl text-cyan-500"></i>
-                        <span class="text-[10px] text-neutral-400 mt-1">Can</span>
-                     </div>
-                     <!-- Rive -->
-                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-pink-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Rive">
-                        <i class="ph ph-game-controller text-2xl text-pink-500"></i>
-                        <span class="text-[10px] text-neutral-400 mt-1">Rive</span>
-                     </div>
-                     <!-- Lottie -->
-                     <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-teal-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Lottie">
-                        <i class="ph ph-file-code text-2xl text-teal-500"></i>
-                        <span class="text-[10px] text-neutral-400 mt-1">Json</span>
-                     </div>
+                <div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
+                    <div class="grid grid-cols-3 gap-2 pb-2">
+                         <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-purple-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="After Effects">
+                            <i class="ph ph-film-strip text-2xl text-purple-500"></i>
+                            <span class="text-[10px] text-neutral-400 mt-1">Ae</span>
+                         </div>
+                         <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-orange-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Blender">
+                            <i class="ph ph-cube text-2xl text-orange-500"></i>
+                            <span class="text-[10px] text-neutral-400 mt-1">3D</span>
+                         </div>
+                         <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-indigo-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Premiere Pro">
+                            <i class="ph ph-video-camera text-2xl text-indigo-500"></i>
+                            <span class="text-[10px] text-neutral-400 mt-1">Pr</span>
+                         </div>
+                         <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-blue-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Photoshop">
+                            <i class="ph ph-paint-brush-broad text-2xl text-blue-500"></i>
+                            <span class="text-[10px] text-neutral-400 mt-1">Ps</span>
+                         </div>
+                         <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-cyan-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Canva">
+                            <i class="ph ph-layout text-2xl text-cyan-500"></i>
+                            <span class="text-[10px] text-neutral-400 mt-1">Can</span>
+                         </div>
+                         <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-pink-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Rive">
+                            <i class="ph ph-game-controller text-2xl text-pink-500"></i>
+                            <span class="text-[10px] text-neutral-400 mt-1">Rive</span>
+                         </div>
+                         <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-teal-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="Lottie">
+                            <i class="ph ph-file-code text-2xl text-teal-500"></i>
+                            <span class="text-[10px] text-neutral-400 mt-1">Json</span>
+                         </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 5. Testimonials Marquee -->
-        <div class="bento-card col-span-1 md:col-span-2 group">
+        <!-- 5. Testimonials (Fixed Marquee) -->
+        <div class="bento-card col-span-1 md:col-span-2 group animate-enter delay-400">
             <div class="card-inner"></div>
             <div class="card-content flex flex-col justify-center h-full py-6 overflow-hidden">
                  <div class="flex justify-between items-center px-6 md:px-8 mb-4">
@@ -465,51 +441,293 @@
                      </div>
                  </div>
                  <div class="relative w-full overflow-hidden marquee-mask">
-                    <div class="flex gap-4 w-max animate-marquee hover:[animation-play-state:paused]">
-                        <div class="w-64 md:w-80 p-6 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <p class="text-base text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
-                                <div><div class="text-sm font-bold text-white">Sarah Jenkins</div><div class="text-xs text-neutral-500">CEO, TechStart</div></div>
+                    <div class="animate-marquee flex gap-4 items-start">
+                        
+                        <!-- ITEM SET 1 (9 items) -->
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Archie" class="w-8 h-8 rounded-full border border-white/10" alt="Archie Roska">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Archie Roska</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO & Founder, Scent Session</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Big thanks to Raul Torres! The 3D animation for our perfume bottle and box turned out amazing – way beyond what we expected! If you're looking for high-quality product visuals, we definitely recommend this service!"</p>
                             </div>
                         </div>
-                        <div class="w-64 md:w-80 p-6 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <p class="text-base text-neutral-300 mb-4 leading-relaxed">"Fast, professional, and the 'border beam' effect is my favorite thing ever."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
-                                <div><div class="text-sm font-bold text-white">Mark Thompson</div><div class="text-xs text-neutral-500">Lead Dev</div></div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ron" class="w-8 h-8 rounded-full border border-white/10" alt="Ron Baniaga">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Ron Baniaga</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, Remotica.ph</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Laru Creatives was a game-changer for Remotica. They produced outstanding content that significantly elevated our brand. We hope to work on many more projects together!"</p>
                             </div>
                         </div>
-                         <div class="w-64 md:w-80 p-6 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <p class="text-base text-neutral-300 mb-4 leading-relaxed">"The animations transformed our landing page. Insane attention to detail."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neutral-700 to-neutral-600"></div>
-                                <div><div class="text-sm font-bold text-white">Sarah Jenkins</div><div class="text-xs text-neutral-500">CEO, TechStart</div></div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Renato" class="w-8 h-8 rounded-full border border-white/10" alt="Renato">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Renato</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, One Page Digital</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Although my requirement is really easy or simple comparing to the skill set of the animator, I felt that my requirement was properly taken cared of. Kumbaga, may puso. Not just the process, I was also happy with the results."</p>
                             </div>
                         </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Paul" class="w-8 h-8 rounded-full border border-white/10" alt="Paul Olivarez">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Paul Olivarez</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, Boteya</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"With his creativity, we were able to put our product out there. Our campaign became more effective and was able to catch the attention of our target customers. He made a real difference, and I wouldn’t hesitate to recommend him."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jaymar" class="w-8 h-8 rounded-full border border-white/10" alt="Jaymar Vallarta">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Jaymar Vallarta</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Senior Graphic Designer, QRx</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"I highly recommend Raul. I collaborated with him for almost three years, and he’s incredibly talented. He’s great at motion graphics, 2D/3D animation, and video editing."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Faith" class="w-8 h-8 rounded-full border border-white/10" alt="Faith Cerena">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Faith Cerena</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Founder, Areglaw.ai</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul is very talented and accommodating. Fast turnarounds without sacrificing quality. The best motion graphics partner we’ve had so far."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Crisellis" class="w-8 h-8 rounded-full border border-white/10" alt="Crisellis Perez">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Crisellis Perez</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, HelloFrench LLC</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul did an excellent job on my Instagram profile animation. The communication was smooth, and he understood the assignment from the get-go. The final result was precisely what I had envisaged. I would highly recommend him."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Debby" class="w-8 h-8 rounded-full border border-white/10" alt="Debby Gainsford">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Debby Gainsford</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Manager, HR Software</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"We've been working with Raul for a few weeks and it's been great. He's been animating static ads for us and has very quickly understood our brand and what we need. Looking forward to working with him on more projects."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kala" class="w-8 h-8 rounded-full border border-white/10" alt="Kala Nicholson">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Kala Nicholson</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Founder, Pickitrips</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Raul was an amazing experience. He made a video for my product that I took to pitch sessions, and people just loved it. It got rave reviews, and he absolutely nailed what I was looking for. Plus, he was super easy to collaborate with from start to finish. I’d recommend him in a heartbeat."</p>
+                            </div>
+                        </div>
+
+
+                        <!-- ITEM SET 2 (Duplicates) -->
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Archie" class="w-8 h-8 rounded-full border border-white/10" alt="Archie Roska">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Archie Roska</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO & Founder, Scent Session</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Big thanks to Raul Torres! The 3D animation for our perfume bottle and box turned out amazing – way beyond what we expected! If you're looking for high-quality product visuals, we definitely recommend this service!"</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ron" class="w-8 h-8 rounded-full border border-white/10" alt="Ron Baniaga">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Ron Baniaga</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, Remotica.ph</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Laru Creatives was a game-changer for Remotica. They produced outstanding content that significantly elevated our brand. We hope to work on many more projects together!"</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Renato" class="w-8 h-8 rounded-full border border-white/10" alt="Renato">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Renato</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, One Page Digital</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Although my requirement is really easy or simple comparing to the skill set of the animator, I felt that my requirement was properly taken cared of. Kumbaga, may puso. Not just the process, I was also happy with the results."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Paul" class="w-8 h-8 rounded-full border border-white/10" alt="Paul Olivarez">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Paul Olivarez</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, Boteya</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"With his creativity, we were able to put our product out there. Our campaign became more effective and was able to catch the attention of our target customers. He made a real difference, and I wouldn’t hesitate to recommend him."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jaymar" class="w-8 h-8 rounded-full border border-white/10" alt="Jaymar Vallarta">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Jaymar Vallarta</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Senior Graphic Designer, QRx</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"I highly recommend Raul. I collaborated with him for almost three years, and he’s incredibly talented. He’s great at motion graphics, 2D/3D animation, and video editing."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Faith" class="w-8 h-8 rounded-full border border-white/10" alt="Faith Cerena">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Faith Cerena</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Founder, Areglaw.ai</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul is very talented and accommodating. Fast turnarounds without sacrificing quality. The best motion graphics partner we’ve had so far."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Crisellis" class="w-8 h-8 rounded-full border border-white/10" alt="Crisellis Perez">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Crisellis Perez</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">CEO, HelloFrench LLC</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul did an excellent job on my Instagram profile animation. The communication was smooth, and he understood the assignment from the get-go. The final result was precisely what I had envisaged. I would highly recommend him."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Debby" class="w-8 h-8 rounded-full border border-white/10" alt="Debby Gainsford">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Debby Gainsford</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Manager, HR Software</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"We've been working with Raul for a few weeks and it's been great. He's been animating static ads for us and has very quickly understood our brand and what we need. Looking forward to working with him on more projects."</p>
+                            </div>
+                        </div>
+
+                        <div class="group/item w-72 p-5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default flex flex-col gap-2 shrink-0">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kala" class="w-8 h-8 rounded-full border border-white/10" alt="Kala Nicholson">
+                                    <div>
+                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Kala Nicholson</div>
+                                        <div class="text-[10px] text-neutral-500 leading-tight">Founder, Pickitrips</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
+                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Raul was an amazing experience. He made a video for my product that I took to pitch sessions, and people just loved it. It got rave reviews, and he absolutely nailed what I was looking for. Plus, he was super easy to collaborate with from start to finish. I’d recommend him in a heartbeat."</p>
+                            </div>
+                        </div>
+
                     </div>
                  </div>
             </div>
         </div>
 
-        <!-- 6. Featured Project (Static Preview) -->
-        <a href="works.html" class="bento-card col-span-1 group cursor-pointer overflow-hidden block relative">
-            <div class="card-inner"></div>
-            <div class="absolute inset-0 z-0 opacity-40 group-hover:opacity-60 transition-opacity bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-            <div class="card-content p-6 flex flex-col justify-end h-full relative z-20">
-                <div class="text-sm text-amber-400 font-mono mb-2">Latest</div>
-                <h3 class="text-xl font-bold text-white md:group-hover:translate-x-1 transition-transform">Lumina App</h3>
-            </div>
-        </a>
-
         <!-- 7. Connect -->
-        <div class="bento-card col-span-1 group">
+        <div class="bento-card col-span-1 group animate-enter delay-600">
             <div class="card-inner"></div>
             <div class="card-content p-0 h-full flex flex-col">
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
-                    <span class="text-base font-medium">Twitter</span>
-                    <i class="ph ph-twitter-logo text-neutral-400 group-hover:text-white text-xl"></i>
+                    <span class="text-base font-medium">TikTok</span>
+                    <i class="ph ph-tiktok-logo text-neutral-400 group-hover:text-white text-xl"></i>
                 </a>
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
                     <span class="text-base font-medium">Instagram</span>
@@ -524,18 +742,6 @@
     </div>
 
     <script>
-        // --- HOVER DESCRIPTION LOGIC ---
-        function setAiDesc(title, desc) {
-             document.getElementById('ai-stack-desc').textContent = title + ": " + desc;
-             document.getElementById('ai-stack-desc').classList.add('text-blue-400');
-             document.getElementById('ai-stack-desc').classList.remove('text-neutral-500');
-        }
-        function resetAiDesc() {
-            document.getElementById('ai-stack-desc').textContent = 'Hover for info';
-            document.getElementById('ai-stack-desc').classList.remove('text-blue-400');
-            document.getElementById('ai-stack-desc').classList.add('text-neutral-500');
-        }
-
         // --- FLASH LIGHT & TEXT ---
         const cards = document.querySelectorAll('.bento-card');
         if (window.matchMedia("(hover: hover)").matches) {
