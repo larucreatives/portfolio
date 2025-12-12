@@ -14,14 +14,16 @@
     
     <script src="https://cdn.tailwindcss.com" defer></script>
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Loaded Plus Jakarta Sans (Headlines) and Inter (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
                     },
                     colors: {
                         bg: '#050505',
@@ -48,10 +50,11 @@
             background-color: #050505;
             color: #ffffff;
             overflow-x: hidden;
+            font-family: 'Inter', sans-serif; /* Default body font */
             background-image: 
                 url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
-                radial-gradient(circle at 100% 0%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, rgba(60, 60, 60, 0.4) 0%, transparent 50%);
+                radial-gradient(circle at 100% 0%, #262626 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, #262626 0%, transparent 50%);
             background-repeat: repeat, no-repeat, no-repeat;
             background-size: auto, cover, cover;
             -webkit-tap-highlight-color: transparent;
@@ -80,12 +83,11 @@
         }
         
         @media (hover: hover) {
-            /* Border Glow (Behind Inner) */
             .bento-card::before {
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.4), transparent 40%);
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.25), transparent 40%);
                 opacity: 0;
                 transition: opacity 0.5s;
                 z-index: 0;
@@ -93,15 +95,14 @@
             }
             .bento-card:hover::before { opacity: 1; }
 
-            /* Inner Surface Glow (Restored) */
             .card-content::before {
                 content: "";
                 position: absolute;
                 top: 0; left: 0; right: 0; bottom: 0;
-                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245, 158, 11, 0.2), transparent 40%);
+                background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.1), transparent 40%);
                 opacity: 0;
                 transition: opacity 0.5s;
-                z-index: -1; /* Behind text but above card background */
+                z-index: -1; 
                 pointer-events: none;
             }
             .bento-card:hover .card-content::before { opacity: 1; }
@@ -112,14 +113,13 @@
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(to bottom right, rgba(245, 158, 11, 0.25), transparent 50%);
+                background: linear-gradient(to bottom right, rgba(255, 158, 11, 0.05), transparent 50%);
                 opacity: 1; 
                 z-index: 0;
             }
         }
 
         .card-inner { position: absolute; inset: 1px; background: #0f0f0f; border-radius: 23px; z-index: 1; }
-        /* card-content needs to be relative and z-index 2 to sit above card-inner */
         .card-content { position: relative; z-index: 2; height: 100%; }
 
         /* --- 2. Animations --- */
@@ -132,7 +132,6 @@
         }
         @keyframes textBlurDown { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
-        /* Marquee Animation Hardcoded */
         .animate-marquee {
             display: flex;
             width: max-content;
@@ -157,6 +156,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             z-index: 1;
+            font-family: 'Plus Jakarta Sans', sans-serif; /* Button Text Font */
         }
         
         .beam-btn::after {
@@ -273,7 +273,7 @@
                     </div>
 
                     <!-- Badge -->
-                    <div class="px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 text-sm text-amber-500 font-medium tracking-wide flex items-center gap-2">
+                    <div class="px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 text-sm font-display font-medium tracking-wide flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
                         Available
                     </div>
@@ -281,13 +281,13 @@
 
                 <div class="mt-6 md:mt-8">
                     <div class="mb-1 flex flex-col sm:flex-row sm:items-baseline gap-2">
-                        <span class="text-xl text-neutral-400 font-medium">Hi, I'm</span>
-                        <span class="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600 text-glow">Raul Torres</span>
+                        <span class="text-xl text-neutral-400 font-display font-medium">Hi, I'm</span>
+                        <span class="text-xl font-display font-medium bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600 text-glow">Raul Torres</span>
                     </div>
                     
-                    <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 leading-tight animated-text">Motion Designer</h1>
+                    <h1 class="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4 leading-tight animated-text">Motion Designer</h1>
                     
-                    <p class="text-neutral-300 max-w-2xl leading-relaxed text-base md:text-lg">
+                    <p class="text-neutral-300 max-w-2xl leading-relaxed text-base md:text-lg font-body">
                         Crafting digital experiences with premium fluidity. Specializing in UI animation, interaction, and visual storytelling.
                     </p>
                 </div>
@@ -297,7 +297,6 @@
                         Start a Project
                     </a>
                     
-                    <!-- View Showreel -->
                     <button onclick="openShowreel()" class="beam-btn px-8 py-3.5 text-base font-semibold tracking-wide transition-transform active:scale-95 text-center flex items-center justify-center min-w-[160px] gap-2">
                         <i class="ph ph-play-circle text-xl"></i>
                         View Showreel
@@ -311,16 +310,16 @@
             <div class="card-inner"></div>
             <div class="card-content p-6 flex flex-col h-full">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-semibold text-white/90">Capabilities</h3>
+                    <h3 class="text-xl font-display font-semibold text-white/90">Capabilities</h3>
                     <i class="ph ph-list-checks text-neutral-500 text-xl"></i>
                 </div>
                 
                 <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 font-body">
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-amber-500/10 text-amber-500"><i class="ph ph-film-strip text-lg"></i></div>
-                                 <h4 class="font-bold text-base text-white group-hover/item:text-amber-500 transition-colors">Motion Design</h4>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-amber-500 transition-colors font-display">Motion Design</h4>
                             </div>
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
@@ -333,7 +332,7 @@
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-orange-500/10 text-orange-500"><i class="ph ph-cube text-lg"></i></div>
-                                 <h4 class="font-bold text-base text-white group-hover/item:text-orange-500 transition-colors">Blender (3D)</h4>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-orange-500 transition-colors font-display">Blender (3D)</h4>
                             </div>
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
@@ -345,7 +344,7 @@
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-purple-500/10 text-purple-500"><i class="ph ph-paint-brush text-lg"></i></div>
-                                 <h4 class="font-bold text-base text-white group-hover/item:text-purple-500 transition-colors">Graphic Design</h4>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-purple-500 transition-colors font-display">Graphic Design</h4>
                             </div>
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
@@ -357,7 +356,7 @@
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-pink-500/10 text-pink-500"><i class="ph ph-activity text-lg"></i></div>
-                                 <h4 class="font-bold text-base text-white group-hover/item:text-pink-500 transition-colors">Web Animation</h4>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-pink-500 transition-colors font-display">Web Animation</h4>
                             </div>
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
@@ -370,7 +369,7 @@
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500"><i class="ph ph-sparkle text-lg"></i></div>
-                                 <h4 class="font-bold text-base text-white group-hover/item:text-blue-500 transition-colors">AI Integration</h4>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-blue-500 transition-colors font-display">AI Integration</h4>
                             </div>
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
@@ -383,7 +382,7 @@
                         <div class="group/item p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all cursor-default">
                             <div class="flex items-center gap-3">
                                  <div class="p-2 rounded-lg bg-teal-500/10 text-teal-500"><i class="ph ph-desktop text-lg"></i></div>
-                                 <h4 class="font-bold text-base text-white group-hover/item:text-teal-500 transition-colors">Web Design (Framer)</h4>
+                                 <h4 class="font-bold text-base text-white group-hover/item:text-teal-500 transition-colors font-display">Web Design (Framer)</h4>
                             </div>
                             <div class="max-h-0 opacity-0 group-hover/item:max-h-[200px] group-hover/item:opacity-100 transition-all duration-500 overflow-hidden">
                                 <ul class="pt-3 space-y-2 pl-2 border-l border-white/10 ml-4">
@@ -413,8 +412,8 @@
                     </div>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold text-white mb-2">My Works</h3>
-                    <p class="text-sm text-white/70">Explore case studies &rarr;</p>
+                    <h3 class="text-2xl font-display font-bold text-white mb-2">My Works</h3>
+                    <p class="text-sm text-white/70 font-body">Explore case studies &rarr;</p>
                 </div>
             </div>
         </a>
@@ -425,11 +424,11 @@
             <div class="absolute inset-0 bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 opacity-50"></div>
             <div class="card-content p-6 flex flex-col h-full relative z-20">
                  <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold text-white/90">Tools</h3>
+                    <h3 class="text-xl font-display font-semibold text-white/90">Tools</h3>
                     <i class="ph ph-wrench text-neutral-400 text-xl"></i>
                 </div>
                 <div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
-                    <div class="grid grid-cols-3 gap-2 pb-2">
+                    <div class="grid grid-cols-3 gap-2 pb-2 font-body">
                          <div class="flex flex-col items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:border-purple-500/50 transition-all duration-300 hover:scale-110 hover:rotate-3" title="After Effects">
                             <i class="ph ph-film-strip text-2xl text-purple-500"></i>
                             <span class="text-[10px] text-neutral-400 mt-1">Ae</span>
@@ -468,7 +467,7 @@
             <div class="card-inner"></div>
             <div class="card-content flex flex-col justify-center h-full py-6 overflow-hidden">
                  <div class="flex justify-between items-center px-6 md:px-8 mb-4">
-                     <h3 class="text-sm font-mono text-neutral-500 uppercase tracking-widest">Client Love</h3>
+                     <h3 class="text-sm font-display font-mono text-neutral-500 uppercase tracking-widest">Client Love</h3>
                      <div class="flex gap-1">
                          <div class="w-2 h-2 rounded-full bg-amber-500/20"></div>
                          <div class="w-2 h-2 rounded-full bg-amber-500/40"></div>
@@ -484,13 +483,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Archie" class="w-8 h-8 rounded-full border border-white/10" alt="Archie Roska">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Archie Roska</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Archie Roska</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO & Founder, Scent Session</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Big thanks to Raul Torres! The 3D animation for our perfume bottle and box turned out amazing – way beyond what we expected! If you're looking for high-quality product visuals, we definitely recommend this service!"</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Big thanks to Raul Torres! The 3D animation for our perfume bottle and box turned out amazing – way beyond what we expected! If you're looking for high-quality product visuals, we definitely recommend this service!"</p>
                             </div>
                         </div>
 
@@ -499,13 +498,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ron" class="w-8 h-8 rounded-full border border-white/10" alt="Ron Baniaga">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Ron Baniaga</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Ron Baniaga</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, Remotica.ph</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Laru Creatives was a game-changer for Remotica. They produced outstanding content that significantly elevated our brand. We hope to work on many more projects together!"</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Working with Laru Creatives was a game-changer for Remotica. They produced outstanding content that significantly elevated our brand. We hope to work on many more projects together!"</p>
                             </div>
                         </div>
 
@@ -514,13 +513,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Renato" class="w-8 h-8 rounded-full border border-white/10" alt="Renato">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Renato</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Renato</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, One Page Digital</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Although my requirement is really easy or simple comparing to the skill set of the animator, I felt that my requirement was properly taken cared of. Kumbaga, may puso. Not just the process, I was also happy with the results."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Although my requirement is really easy or simple comparing to the skill set of the animator, I felt that my requirement was properly taken cared of. Kumbaga, may puso. Not just the process, I was also happy with the results."</p>
                             </div>
                         </div>
 
@@ -529,13 +528,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Paul" class="w-8 h-8 rounded-full border border-white/10" alt="Paul Olivarez">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Paul Olivarez</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Paul Olivarez</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, Boteya</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"With his creativity, we were able to put our product out there. Our campaign became more effective and was able to catch the attention of our target customers. He made a real difference, and I wouldn’t hesitate to recommend him."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"With his creativity, we were able to put our product out there. Our campaign became more effective and was able to catch the attention of our target customers. He made a real difference, and I wouldn’t hesitate to recommend him."</p>
                             </div>
                         </div>
 
@@ -544,13 +543,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jaymar" class="w-8 h-8 rounded-full border border-white/10" alt="Jaymar Vallarta">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Jaymar Vallarta</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Jaymar Vallarta</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Senior Graphic Designer, QRx</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"I highly recommend Raul. I collaborated with him for almost three years, and he’s incredibly talented. He’s great at motion graphics, 2D/3D animation, and video editing."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"I highly recommend Raul. I collaborated with him for almost three years, and he’s incredibly talented. He’s great at motion graphics, 2D/3D animation, and video editing."</p>
                             </div>
                         </div>
 
@@ -559,13 +558,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Faith" class="w-8 h-8 rounded-full border border-white/10" alt="Faith Cerena">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Faith Cerena</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Faith Cerena</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Founder, Areglaw.ai</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul is very talented and accommodating. Fast turnarounds without sacrificing quality. The best motion graphics partner we’ve had so far."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Raul is very talented and accommodating. Fast turnarounds without sacrificing quality. The best motion graphics partner we’ve had so far."</p>
                             </div>
                         </div>
 
@@ -574,13 +573,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Crisellis" class="w-8 h-8 rounded-full border border-white/10" alt="Crisellis Perez">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Crisellis Perez</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Crisellis Perez</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, HelloFrench LLC</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul did an excellent job on my Instagram profile animation. The communication was smooth, and he understood the assignment from the get-go. The final result was precisely what I had envisaged. I would highly recommend him."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Raul did an excellent job on my Instagram profile animation. The communication was smooth, and he understood the assignment from the get-go. The final result was precisely what I had envisaged. I would highly recommend him."</p>
                             </div>
                         </div>
 
@@ -589,13 +588,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Debby" class="w-8 h-8 rounded-full border border-white/10" alt="Debby Gainsford">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Debby Gainsford</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Debby Gainsford</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Manager, HR Software</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"We've been working with Raul for a few weeks and it's been great. He's been animating static ads for us and has very quickly understood our brand and what we need. Looking forward to working with him on more projects."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"We've been working with Raul for a few weeks and it's been great. He's been animating static ads for us and has very quickly understood our brand and what we need. Looking forward to working with him on more projects."</p>
                             </div>
                         </div>
 
@@ -604,13 +603,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kala" class="w-8 h-8 rounded-full border border-white/10" alt="Kala Nicholson">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Kala Nicholson</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Kala Nicholson</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Founder, Pickitrips</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Raul was an amazing experience. He made a video for my product that I took to pitch sessions, and people just loved it. It got rave reviews, and he absolutely nailed what I was looking for. Plus, he was super easy to collaborate with from start to finish. I’d recommend him in a heartbeat."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Working with Raul was an amazing experience. He made a video for my product that I took to pitch sessions, and people just loved it. It got rave reviews, and he absolutely nailed what I was looking for. Plus, he was super easy to collaborate with from start to finish. I’d recommend him in a heartbeat."</p>
                             </div>
                         </div>
 
@@ -620,13 +619,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Archie" class="w-8 h-8 rounded-full border border-white/10" alt="Archie Roska">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Archie Roska</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Archie Roska</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO & Founder, Scent Session</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Big thanks to Raul Torres! The 3D animation for our perfume bottle and box turned out amazing – way beyond what we expected! If you're looking for high-quality product visuals, we definitely recommend this service!"</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Big thanks to Raul Torres! The 3D animation for our perfume bottle and box turned out amazing – way beyond what we expected! If you're looking for high-quality product visuals, we definitely recommend this service!"</p>
                             </div>
                         </div>
 
@@ -635,13 +634,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ron" class="w-8 h-8 rounded-full border border-white/10" alt="Ron Baniaga">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Ron Baniaga</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Ron Baniaga</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, Remotica.ph</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Laru Creatives was a game-changer for Remotica. They produced outstanding content that significantly elevated our brand. We hope to work on many more projects together!"</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Working with Laru Creatives was a game-changer for Remotica. They produced outstanding content that significantly elevated our brand. We hope to work on many more projects together!"</p>
                             </div>
                         </div>
 
@@ -650,13 +649,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Renato" class="w-8 h-8 rounded-full border border-white/10" alt="Renato">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Renato</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Renato</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, One Page Digital</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Although my requirement is really easy or simple comparing to the skill set of the animator, I felt that my requirement was properly taken cared of. Kumbaga, may puso. Not just the process, I was also happy with the results."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Although my requirement is really easy or simple comparing to the skill set of the animator, I felt that my requirement was properly taken cared of. Kumbaga, may puso. Not just the process, I was also happy with the results."</p>
                             </div>
                         </div>
 
@@ -665,13 +664,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Paul" class="w-8 h-8 rounded-full border border-white/10" alt="Paul Olivarez">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Paul Olivarez</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Paul Olivarez</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, Boteya</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"With his creativity, we were able to put our product out there. Our campaign became more effective and was able to catch the attention of our target customers. He made a real difference, and I wouldn’t hesitate to recommend him."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"With his creativity, we were able to put our product out there. Our campaign became more effective and was able to catch the attention of our target customers. He made a real difference, and I wouldn’t hesitate to recommend him."</p>
                             </div>
                         </div>
 
@@ -680,13 +679,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jaymar" class="w-8 h-8 rounded-full border border-white/10" alt="Jaymar Vallarta">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Jaymar Vallarta</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Jaymar Vallarta</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Senior Graphic Designer, QRx</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"I highly recommend Raul. I collaborated with him for almost three years, and he’s incredibly talented. He’s great at motion graphics, 2D/3D animation, and video editing."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"I highly recommend Raul. I collaborated with him for almost three years, and he’s incredibly talented. He’s great at motion graphics, 2D/3D animation, and video editing."</p>
                             </div>
                         </div>
 
@@ -695,13 +694,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Faith" class="w-8 h-8 rounded-full border border-white/10" alt="Faith Cerena">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Faith Cerena</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Faith Cerena</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Founder, Areglaw.ai</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul is very talented and accommodating. Fast turnarounds without sacrificing quality. The best motion graphics partner we’ve had so far."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Raul is very talented and accommodating. Fast turnarounds without sacrificing quality. The best motion graphics partner we’ve had so far."</p>
                             </div>
                         </div>
 
@@ -710,13 +709,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Crisellis" class="w-8 h-8 rounded-full border border-white/10" alt="Crisellis Perez">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Crisellis Perez</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Crisellis Perez</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">CEO, HelloFrench LLC</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Raul did an excellent job on my Instagram profile animation. The communication was smooth, and he understood the assignment from the get-go. The final result was precisely what I had envisaged. I would highly recommend him."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Raul did an excellent job on my Instagram profile animation. The communication was smooth, and he understood the assignment from the get-go. The final result was precisely what I had envisaged. I would highly recommend him."</p>
                             </div>
                         </div>
 
@@ -725,13 +724,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Debby" class="w-8 h-8 rounded-full border border-white/10" alt="Debby Gainsford">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Debby Gainsford</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Debby Gainsford</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Manager, HR Software</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"We've been working with Raul for a few weeks and it's been great. He's been animating static ads for us and has very quickly understood our brand and what we need. Looking forward to working with him on more projects."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"We've been working with Raul for a few weeks and it's been great. He's been animating static ads for us and has very quickly understood our brand and what we need. Looking forward to working with him on more projects."</p>
                             </div>
                         </div>
 
@@ -740,13 +739,13 @@
                                 <div class="flex items-center gap-3">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kala" class="w-8 h-8 rounded-full border border-white/10" alt="Kala Nicholson">
                                     <div>
-                                        <div class="text-sm font-bold text-white group-hover/item:text-amber-500 transition-colors">Kala Nicholson</div>
+                                        <div class="text-sm font-display font-bold text-white group-hover/item:text-amber-500 transition-colors">Kala Nicholson</div>
                                         <div class="text-[10px] text-neutral-500 leading-tight">Founder, Pickitrips</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:overflow-y-auto custom-scrollbar">
-                                <p class="text-sm text-neutral-300 leading-relaxed italic">"Working with Raul was an amazing experience. He made a video for my product that I took to pitch sessions, and people just loved it. It got rave reviews, and he absolutely nailed what I was looking for. Plus, he was super easy to collaborate with from start to finish. I’d recommend him in a heartbeat."</p>
+                                <p class="text-sm font-body text-neutral-300 leading-relaxed italic">"Working with Raul was an amazing experience. He made a video for my product that I took to pitch sessions, and people just loved it. It got rave reviews, and he absolutely nailed what I was looking for. Plus, he was super easy to collaborate with from start to finish. I’d recommend him in a heartbeat."</p>
                             </div>
                         </div>
 
@@ -760,15 +759,15 @@
             <div class="card-inner"></div>
             <div class="card-content p-0 h-full flex flex-col">
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
-                    <span class="text-base font-medium">TikTok</span>
+                    <span class="text-base font-display font-medium">TikTok</span>
                     <i class="ph ph-tiktok-logo text-neutral-400 group-hover:text-white text-xl"></i>
                 </a>
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors border-b border-white/5">
-                    <span class="text-base font-medium">Instagram</span>
+                    <span class="text-base font-display font-medium">Instagram</span>
                     <i class="ph ph-instagram-logo text-neutral-400 group-hover:text-white text-xl"></i>
                 </a>
                 <a href="#" class="flex-1 flex items-center justify-between px-6 active:bg-white/5 md:hover:bg-white/5 transition-colors">
-                    <span class="text-base font-medium">Email</span>
+                    <span class="text-base font-display font-medium">Email</span>
                     <i class="ph ph-envelope-simple text-neutral-400 group-hover:text-white text-xl"></i>
                 </a>
             </div>
