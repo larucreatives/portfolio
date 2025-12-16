@@ -38,6 +38,15 @@
                         border: '#1f1f1f',
                         primary: '#f59e0b', 
                         secondary: '#ea580c', 
+                    },
+                    animation: {
+                        'marquee': 'marquee 50s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
                     }
                 }
             }
@@ -84,6 +93,7 @@
                 content: "";
                 position: absolute;
                 inset: 0;
+                /* Gray/White Glow */
                 background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.15), transparent 40%);
                 opacity: 0;
                 transition: opacity 0.5s;
@@ -133,7 +143,7 @@
         }
         @keyframes textBlurDown { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
-        /* Marquee Mask */
+        /* Marquee Mask for Testimonials */
         .marquee-mask {
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
@@ -219,7 +229,7 @@
         @media (min-width: 1024px) {
             .bento-grid {
                 grid-template-columns: repeat(4, 1fr);
-                grid-auto-rows: 280px; 
+                grid-auto-rows: 260px; 
                 padding: 2rem;
             }
         }
@@ -269,9 +279,8 @@
                 </div>
 
                 <div class="mt-6 md:mt-8">
-                    <!-- NAME: font-normal, same size, glowing -->
                     <div class="mb-1 flex flex-col sm:flex-row sm:items-baseline gap-2">
-                        <span class="text-xl text-neutral-400 font-display font-medium">Hi, I'm</span>
+                        <span class="text-xl text-neutral-400 font-display font-normal">Hi, I'm</span>
                         <span class="text-xl font-display font-normal bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-600 text-glow">Raul Torres</span>
                     </div>
                     
@@ -375,8 +384,8 @@
         </div>
 
         <!-- 3. Featured Work / My Works -->
-        <a href="/works/" class="bento-card no-glow col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
-            <!-- Video Background -->
+        <a href="/works.html" class="bento-card no-glow col-span-1 group cursor-pointer overflow-hidden block relative animate-enter delay-200">
+            <!-- FIXED: REMOVED CARD-INNER SO VIDEO SHOWS -->
             <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-0 rounded-[23px] inset-[1px]">
                 <source src="https://res.cloudinary.com/dr5hbinpo/video/upload/q_auto/Larucreatives_Webheader_ctksdf.mp4" type="video/mp4">
             </video>
@@ -458,7 +467,7 @@
             </div>
         </div>
 
-        <!-- 5. Testimonials (Fixed Marquee + UPDATED Hover Expand) -->
+        <!-- 5. Testimonials (Marquee with Controls) -->
         <div class="bento-card col-span-1 md:col-span-2 group animate-enter delay-400">
             <div class="card-inner"></div>
             <div class="card-content flex flex-col justify-center h-full py-6 overflow-hidden relative">
@@ -493,7 +502,6 @@
 
         <!-- 6. Lottie Animation Card -->
         <div class="bento-card col-span-1 group animate-enter delay-500 relative flex items-center justify-center overflow-hidden bg-[#FEBC06]">
-            <!-- Lottie Player -->
             <dotlottie-player 
                 src="https://lottie.host/39c4cb1c-e3a0-4ee3-b718-fc31ad90f3df/MCTZ1Pg6kF.lottie" 
                 background="transparent" 
@@ -537,7 +545,7 @@
                 <i class="ph ph-x text-xl"></i>
             </button>
             
-            <!-- Video Placeholder -->
+            <!-- Video Placeholder (You can replace src) -->
             <iframe id="showreel-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
     </div>
@@ -590,9 +598,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- FIXED: Hidden by default (max-h-0), expands on hover -->
-                    <div class="relative overflow-hidden transition-all duration-500 max-h-0 opacity-0 group-hover/item:max-h-[160px] group-hover/item:opacity-100 group-hover/item:overflow-y-auto custom-scrollbar">
-                        <p class="text-sm font-body text-neutral-300 leading-relaxed italic pt-3">${t.text}</p>
+                    <div class="relative overflow-hidden transition-all duration-500 max-h-16 group-hover/item:max-h-[200px] group-hover/item:opacity-100 group-hover/item:overflow-y-auto custom-scrollbar">
+                        <p class="text-sm font-body text-neutral-300 leading-relaxed italic pt-3 line-clamp-2 group-hover/item:line-clamp-none">"${t.text}"</p>
                     </div>
                 </div>
             `).join('');
@@ -603,7 +610,7 @@
         // Animation Loop
         function animateScroll() {
             if (!isHovered) {
-                scrollPos += 0.5; 
+                scrollPos += 0.5; // Adjust speed here (0.5 is approx 50s speed equivalent)
                 if (scrollPos >= track.scrollWidth / 3) {
                     scrollPos = 0;
                 }
