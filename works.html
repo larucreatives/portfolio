@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selected Works - Laru Creatives</title>
+    <title>Selected Works - Raul Torres</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" href="https://res.cloudinary.com/dr5hbinpo/image/upload/v1765536933/FAV_b99tc1.svg" type="image/svg+xml">
     
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://unpkg.com">
@@ -141,15 +144,14 @@
                     </div>
                 </div>
 
-                <!-- Static Frames Section -->
-                <div class="mb-6 flex items-center gap-4">
-                    <!-- Applied font-display to Headline -->
+                <!-- Static Frames Section (Conditional) -->
+                <div id="static-header" class="mb-6 flex items-center gap-4 hidden">
                     <h3 class="text-lg font-display font-bold text-white">Static Frames</h3>
                     <div class="h-px flex-1 bg-white/10"></div>
                 </div>
 
                 <!-- Static Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="static-grid">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden" id="static-grid">
                     <!-- Images Injected JS -->
                 </div>
                 
@@ -185,8 +187,6 @@
                 </div>
 
             </div>
-            
-            <!-- Removed Bottom CTA Button -->
         </div>
 
     </div>
@@ -202,7 +202,11 @@
     </div>
 
     <script>
-        // --- YOUR PROJECTS CONFIGURATION ---
+        // --- INSTRUCTIONS ---
+        // To ADD static frames: Add image links to the 'statics' array. E.g., statics: ["link1.jpg", "link2.jpg"]
+        // To REMOVE static frames: Make the array empty. E.g., statics: []
+        // The section will automatically hide if the list is empty.
+
         const projects = [
             {
                 id: 1,
@@ -214,9 +218,7 @@
                 tools: ["After Effects", "Figma", "Illustrator"],
                 video: "https://res.cloudinary.com/dr5hbinpo/video/upload/v1765456115/Saas_AreglawWorkSample_ladcxs.mp4", 
                 statics: [
-                    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1200&auto=format&fit=crop"
+                    
                 ]
             },
             {
@@ -225,12 +227,11 @@
                 category: "Product Demo",
                 client: "Pickitrips",
                 role: "Lead Motion Designer",
-                description: "For the Picki Trips launch, I developed a high-impact teaser demo designed specifically to capture attention on a busy convention floor. The objective was to create a visceral "wow" moment that demonstrated the app’s ability to generate hyper-personalized travel itineraries in seconds. By condensing the complex AI backend into a sleek, fast-paced visual experience, the demo successfully converted skepticism into excitement, driving significant booth traffic and showcasing the future of effortless travel planning.",
+                description: "For the Picki Trips launch, I developed a high-impact teaser demo designed specifically to capture attention on a busy convention floor. The objective was to create a visceral \"wow\" moment that demonstrated the app’s ability to generate hyper-personalized travel itineraries in seconds. By condensing the complex AI backend into a sleek, fast-paced visual experience, the demo successfully converted skepticism into excitement, driving significant booth traffic and showcasing the future of effortless travel planning.",
                 tools: ["After Effects", "Photoshop", "Illustrator"],
                 video: "https://res.cloudinary.com/dr5hbinpo/video/upload/v1765531277/Pickitrips_Demovideo_bzsh6d.mp4",
                 statics: [
-                    "https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop"
+                   
                 ]
             },
             {
@@ -243,9 +244,7 @@
                 tools: ["After Effects", "Figma"],
                 video: "https://res.cloudinary.com/dr5hbinpo/video/upload/v1765456115/Saas_Remotica_WorkSample_uj5na4.mp4",
                 statics: [
-                    "https://images.unsplash.com/photo-1614850523060-8da1d56ae167?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200&auto=format&fit=crop"
+                  
                 ]
             },
             {
@@ -258,8 +257,7 @@
                 tools: ["Blender", "After Effects", "DaVinci"],
                 video: "https://res.cloudinary.com/dr5hbinpo/video/upload/v1765532311/Boteya_-_2561_With_Logo_czrxb3.mp4",
                 statics: [
-                    "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"
+                  
                 ]
             },
             {
@@ -272,8 +270,7 @@
                 tools: ["Blender", "After Effects", "DaVinci"],
                 video: "https://res.cloudinary.com/dr5hbinpo/video/upload/v1765531911/Portfolio_Scentsession_Maincomp_u372ly.mp4",
                 statics: [
-                    "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"
+                  
                 ]
             },
             {
@@ -286,8 +283,7 @@
                 tools: ["Photoshop", "After Effects"],
                 video: "https://res.cloudinary.com/dr5hbinpo/video/upload/v1765533535/MONO_idhxji.mp4",
                 statics: [
-                    "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"
+                
                 ]
             },
             {
@@ -300,10 +296,9 @@
                 tools: ["Photoshop", "After Effects"],
                 video: "https://res.cloudinary.com/dr5hbinpo/video/upload/v1765533535/MONO_idhxji.mp4",
                 statics: [
-                    "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"
+                
                 ]
-            },
+            }
         ];
 
         // --- RENDER LOGIC ---
@@ -318,8 +313,7 @@
                 el.onclick = () => loadProject(index);
                 
                 el.innerHTML = `
-                    <div class="flex justify-between items-start mb-2 pointer-events-none">
-                        <span class="text-[10px] text-neutral-500 font-mono">0${index + 1}</span>
+                    <div class="flex justify-end items-start mb-2 pointer-events-none">
                         <i class="ph ph-caret-right text-neutral-600"></i>
                     </div>
                     <h3 class="title text-sm font-display font-bold text-neutral-300 transition-colors pointer-events-none">${p.title}</h3>
@@ -356,22 +350,38 @@
             const videoFrame = document.getElementById('main-video');
             videoFrame.src = p.video;
 
-            const grid = document.getElementById('static-grid');
-            grid.innerHTML = '';
-            p.statics.forEach((imgSrc, i) => {
-                const imgDiv = document.createElement('div');
-                imgDiv.className = "group relative aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-neutral-900 cursor-zoom-in";
-                imgDiv.onclick = () => openImageModal(imgSrc);
-                const loadingAttr = i === 0 ? 'eager' : 'lazy';
-                
-                imgDiv.innerHTML = `
-                    <img src="${imgSrc}" loading="${loadingAttr}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Static Frame">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <i class="ph ph-magnifying-glass-plus text-white text-3xl drop-shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
-                    </div>
-                `;
-                grid.appendChild(imgDiv);
-            });
+            // --- STATIC FRAMES LOGIC ---
+            const staticHeader = document.getElementById('static-header');
+            const staticGrid = document.getElementById('static-grid');
+
+            if (p.statics && p.statics.length > 0) {
+                staticHeader.classList.remove('hidden');
+                staticHeader.classList.add('flex');
+                staticGrid.classList.remove('hidden');
+                staticGrid.classList.add('grid');
+
+                staticGrid.innerHTML = '';
+                p.statics.forEach((imgSrc, i) => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = "group relative aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-neutral-900 cursor-zoom-in";
+                    imgDiv.onclick = () => openImageModal(imgSrc);
+                    const loadingAttr = i === 0 ? 'eager' : 'lazy';
+                    
+                    imgDiv.innerHTML = `
+                        <img src="${imgSrc}" loading="${loadingAttr}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Static Frame">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="ph ph-magnifying-glass-plus text-white text-3xl drop-shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300"></i>
+                        </div>
+                    `;
+                    grid.appendChild(imgDiv);
+                });
+            } else {
+                staticHeader.classList.add('hidden');
+                staticHeader.classList.remove('flex');
+                staticGrid.classList.add('hidden');
+                staticGrid.classList.remove('grid');
+                staticGrid.innerHTML = '';
+            }
 
             document.getElementById('visual-container').scrollTop = 0;
         }
@@ -421,4 +431,3 @@
     </script>
 </body>
 </html>
-
